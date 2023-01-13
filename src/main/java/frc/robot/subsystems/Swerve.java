@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.SwerveModule;
+import frc.robot.dashboard.SuperSystem;
 import frc.robot.Constants;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -16,15 +17,21 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 
-public class Swerve extends SubsystemBase {
+
+public class Swerve extends SuperSystem {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
-    public Pigeon2 gyro;
+    // public Pigeon2 gyro;
+    public AHRS gyro;
 
     public Swerve() {
-        gyro = new Pigeon2(Constants.Swerve.pigeonID);
-        gyro.configFactoryDefault();
+        super("Swerve");
+        gyro = new AHRS(SPI.Port.kMXP);
+        // gyro = new Pigeon2(Constants.Swerve.pigeonID);
+        // gyro.configFactoryDefault();
         zeroGyro();
 
         mSwerveMods = new SwerveModule[] {
@@ -54,6 +61,9 @@ public class Swerve extends SubsystemBase {
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
         for(SwerveModule mod : mSwerveMods){
+            // System.out.println(""+rotation +" check:"+ swerveModuleStates[mod.moduleNumber].angle);
+            // System.out.println(""+rotation +" check:"+ swerveModuleStates[mod.moduleNumber].angle);
+            // getTab().putInDashboard(""+rotation, swerveModuleStates[mod.moduleNumber].angle,false);
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
     }    
@@ -92,7 +102,8 @@ public class Swerve extends SubsystemBase {
     }
 
     public void zeroGyro(){
-        gyro.setYaw(0);
+        gyro.reset();
+        // gyro.setYaw(0);
     }
 
     public Rotation2d getYaw() {
@@ -102,7 +113,10 @@ public class Swerve extends SubsystemBase {
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  
-
+        getTab().putInDashboard("encoder LF", mSwerveMods[Constants.Swerve.FL].getCanCoder().getDegrees(), false);
+        getTab().putInDashboard("encoder LB", mSwerveMods[Constants.Swerve.BL].getCanCoder().getDegrees(), false);
+        getTab().putInDashboard("encoder RF", mSwerveMods[Constants.Swerve.FR].getCanCoder().getDegrees(), false);
+        getTab().putInDashboard("encoder RB", mSwerveMods[Constants.Swerve.BR].getCanCoder().getDegrees(), false);
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());

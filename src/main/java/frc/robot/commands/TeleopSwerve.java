@@ -34,7 +34,9 @@ public class TeleopSwerve extends CommandBase {
         double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
-
+        // System.out.println("t"+translationVal);
+        // System.out.println("s"+strafeVal);
+        // System.out.println("r"+rotationVal);
         /* Drive */
         s_Swerve.drive(
             new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 

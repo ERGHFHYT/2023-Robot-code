@@ -54,7 +54,14 @@ public class Robot extends TimedRobot {
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    // System.out.println(m_robotContainer.s_Swerve.getYaw());
+    // System.out.println(m_robotContainer.s_Swerve.getModulePositions()[0].angle);
+    // System.out.println(m_robotContainer.s_Swerve.getModulePositions()[1].angle);
+    // System.out.println(m_robotContainer.s_Swerve.getModulePositions()[2].angle);
+    // System.out.println(m_robotContainer.s_Swerve.getModulePositions()[3].angle);
+    // System.out.println();
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
