@@ -61,8 +61,10 @@ public class Swerve extends SuperSystem {
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
         for(SwerveModule mod : mSwerveMods){
+            // SwerveModule mod = mSwerveMods[3];
+            System.out.println("BBB " + mod.moduleNumber + " rotation: " +rotation +" check:"+ swerveModuleStates[mod.moduleNumber].angle);
             // System.out.println(""+rotation +" check:"+ swerveModuleStates[mod.moduleNumber].angle);
-            // System.out.println(""+rotation +" check:"+ swerveModuleStates[mod.moduleNumber].angle);
+            // getTab().putInDashboard(""+rotation, swerveModuleStates[mod.moduleNumber].angle,false);
             // getTab().putInDashboard(""+rotation, swerveModuleStates[mod.moduleNumber].angle,false);
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
@@ -115,6 +117,7 @@ public class Swerve extends SuperSystem {
         swerveOdometry.update(getYaw(), getModulePositions());  
         getTab().putInDashboard("encoder LF", mSwerveMods[Constants.Swerve.FL].getCanCoder().getDegrees(), false);
         getTab().putInDashboard("encoder LB", mSwerveMods[Constants.Swerve.BL].getCanCoder().getDegrees(), false);
+        getTab().putInDashboard("encoder LB - check", mSwerveMods[Constants.Swerve.BL].getCanCoder().getDegrees(), false);
         getTab().putInDashboard("encoder RF", mSwerveMods[Constants.Swerve.FR].getCanCoder().getDegrees(), false);
         getTab().putInDashboard("encoder RB", mSwerveMods[Constants.Swerve.BR].getCanCoder().getDegrees(), false);
         for(SwerveModule mod : mSwerveMods){
