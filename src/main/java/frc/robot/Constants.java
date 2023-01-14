@@ -22,6 +22,7 @@ public final class Constants {
         public static final int FR = 1;
         public static final int BL = 2;
         public static final int BR = 3;
+        
 
         public static final COTSFalconSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
             COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
@@ -42,7 +43,8 @@ public final class Constants {
         /* Module Gear Ratios */
         public static final double driveGearRatio = chosenModule.driveGearRatio;
         public static final double angleGearRatio = chosenModule.angleGearRatio;
-
+        public static final double angleConversionFactor = 360.0 / angleGearRatio;
+        
         /* Motor Inverts */
         public static final boolean angleMotorInvert = chosenModule.angleMotorInvert;
         public static final boolean driveMotorInvert = chosenModule.driveMotorInvert;
@@ -73,7 +75,7 @@ public final class Constants {
         public static final double angleKF = chosenModule.angleKF;
 
         /* Counts per revolution to the SRX encoder*/
-        public static final int cprSRX = 4096;  
+        public static final int cprSRX = 1024;  
 
         /*  */
 

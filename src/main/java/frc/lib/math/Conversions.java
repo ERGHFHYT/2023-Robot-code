@@ -20,6 +20,10 @@ public class Conversions {
         return degrees / (360.0 / (gearRatio * 4096.0));
     }
 
+
+
+    
+
     /**
      * @param counts Falcon Position Counts
      * @param gearRatio Gear Ratio between Falcon and Mechanism

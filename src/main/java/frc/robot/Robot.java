@@ -53,13 +53,21 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {}
 
+  private int i = 0;
+
   @Override
   public void disabledPeriodic() {
     // System.out.println(m_robotContainer.s_Swerve.getYaw());
     // System.out.println(m_robotContainer.s_Swerve.getModulePositions()[0].angle);
-    // System.out.println(m_robotContainer.s_Swerve.getModulePositions()[1].angle);
+    // if (i % 100 == 0){
+    //   System.out.println(m_robotContainer.s_Swerve.getModulePositions()[1].angle);
+    // }
+    // i++;
     // System.out.println(m_robotContainer.s_Swerve.getModulePositions()[2].angle);
     // System.out.println(m_robotContainer.s_Swerve.getModulePositions()[3].angle);
+    // for(int i = 0; i < 4; i++){
+      // getTab().putInDashboard(""+m_robotContainer.s_Swerve.getModulePositions()[i].angle,false);
+      // }
     // System.out.println();
   }
 
@@ -91,7 +99,12 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    if (i % 100 == 0){
+      System.out.println("AAA " + m_robotContainer.s_Swerve.getModulePositions()[1].angle);
+    }
+    i++;
+  }
 
   @Override
   public void testInit() {

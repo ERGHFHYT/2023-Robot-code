@@ -14,12 +14,13 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.CANCoder;
-
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
+import com.revrobotics.SparkMaxPIDController;
 
 public class SwerveModule {
     public int moduleNumber;
@@ -27,6 +28,9 @@ public class SwerveModule {
     private Rotation2d lastAngle;
 
     private CANSparkMax mAngleMotor;
+    private RelativeEncoder integratedAngleEncoder;
+    private final SparkMaxPIDController angleController;
+
     private TalonFX mDriveMotor;
     public TalonSRX angleEncoder;
     // private RelativeEncoder angleEncoder;
@@ -46,6 +50,9 @@ public class SwerveModule {
 
         /* Angle Motor Config */
         mAngleMotor = new CANSparkMax(moduleConstants.angleMotorID, MotorType.kBrushless);
+          /* Angle Motor Config */
+        integratedAngleEncoder = mAngleMotor.getEncoder();
+        angleController = mAngleMotor.getPIDController();
         configAngleMotor();
         // angleEncoder = mAngleMotor.getAlternateEncoder(1);
 
@@ -59,7 +66,8 @@ public class SwerveModule {
 
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){
         /* This is a custom optimize function, since default WPILib optimize assumes continuous controller which CTRE and Rev onboard is not */
-        desiredState = CTREModuleState.optimize(desiredState, getState().angle); 
+        desiredState = CTREModuleState.optimize(desiredState, getState().angle);
+        // System.out.println("DDD desiredState: " + desiredState + " getState().angle: " + getState().angle + " isOpenLoop: " + isOpenLoop);
         setAngle(desiredState);
         setSpeed(desiredState, isOpenLoop);
     }
@@ -81,7 +89,14 @@ public class SwerveModule {
             // Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio);
             
         // }else
-        mAngleMotor.set(Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio));
+        // System.out.println("CCC1 angle: " + angle);
+        // System.out.println("CCC2 desiredState.speedMetersPerSecond: " + desiredState.speedMetersPerSecond);
+        // System.out.println("CCC3 setting to " + Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio));
+        // System.out.println("CCC4 get returns " + mAngleMotor.get());
+        // mAngleMotor.set(Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio));
+            System.out.println("CCC5 setting " + angle.getDegrees());
+        angleController.setReference(angle.getDegrees(), ControlType.kPosition);
+    
         lastAngle = angle;
     }
 
@@ -97,6 +112,7 @@ public class SwerveModule {
         double absolutePosition = Conversions.degreesToFalcon(getCanCoder().getDegrees() - angleOffset.getDegrees(), Constants.Swerve.angleGearRatio);
         angleEncoder.setSelectedSensorPosition(absolutePosition);
         System.out.println(moduleNumber);
+        // integratedAngleEncoder.setPosition(absolutePosition);
         // angleEncoder.setSelectedSensorPosition(0);
     }
 
@@ -111,7 +127,13 @@ public class SwerveModule {
         // mAngleMotor.configAllSettings(Robot.ctreConfigs.swerveAngleFXConfig);
         mAngleMotor.setInverted(Constants.Swerve.angleMotorInvert);
         mAngleMotor.setIdleMode(Constants.Swerve.angleNeutralMode);
+        integratedAngleEncoder.setPositionConversionFactor(Constants.Swerve.angleConversionFactor);
+        angleController.setP(Constants.Swerve.angleKP);
+        angleController.setI(Constants.Swerve.angleKI);
+        angleController.setD(Constants.Swerve.angleKD);
+        angleController.setFF(Constants.Swerve.angleKF);
         resetToAbsolute();
+        
     }
 
     private void configDriveMotor(){        
