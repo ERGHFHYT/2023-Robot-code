@@ -28,7 +28,7 @@ public class SwerveModule {
 
     private CANSparkMax mAngleMotor;
     private TalonFX mDriveMotor;
-    private TalonSRX angleEncoder;
+    public TalonSRX angleEncoder;
     // private RelativeEncoder angleEncoder;
 
 
