@@ -25,7 +25,7 @@ import com.revrobotics.SparkMaxPIDController;
 public class SwerveModule {
     public int moduleNumber;
     private Rotation2d angleOffset;
-    private Rotation2d lastAngle;
+    public Rotation2d lastAngle;
 
     private CANSparkMax mAngleMotor;
     private RelativeEncoder integratedAngleEncoder;
@@ -95,21 +95,24 @@ public class SwerveModule {
         // System.out.println("CCC4 get returns " + mAngleMotor.get());
         // mAngleMotor.set(Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio));
             System.out.println("CCC5 setting " + angle.getDegrees());
+            System.out.println("CCC6 get angle " + getAngle().getDegrees());
         angleController.setReference(angle.getDegrees(), ControlType.kPosition);
     
         lastAngle = angle;
     }
 
+    
+
     public Rotation2d getAngle(){ //TODO: make private
         return Rotation2d.fromDegrees(Conversions.falconToDegrees(angleEncoder.getSelectedSensorPosition(), Constants.Swerve.angleGearRatio));
     }
-
+ 
     public Rotation2d getCanCoder(){
         return Rotation2d.fromDegrees(angleEncoder.getSelectedSensorPosition());
     }
 
     private void resetToAbsolute(){
-        double absolutePosition = Conversions.degreesToFalcon(getCanCoder().getDegrees() - angleOffset.getDegrees(), Constants.Swerve.angleGearRatio);
+        double absolutePosition = 0; // Conversions.degreesToFalcon(getCanCoder().getDegrees() - angleOffset.getDegrees(), Constants.Swerve.angleGearRatio);
         angleEncoder.setSelectedSensorPosition(absolutePosition);
         System.out.println(moduleNumber);
         // integratedAngleEncoder.setPosition(absolutePosition);
@@ -128,6 +131,7 @@ public class SwerveModule {
         mAngleMotor.setInverted(Constants.Swerve.angleMotorInvert);
         mAngleMotor.setIdleMode(Constants.Swerve.angleNeutralMode);
         integratedAngleEncoder.setPositionConversionFactor(Constants.Swerve.angleConversionFactor);
+        // integratedAngleEncoder.setInverted(true);
         angleController.setP(Constants.Swerve.angleKP);
         angleController.setI(Constants.Swerve.angleKI);
         angleController.setD(Constants.Swerve.angleKD);

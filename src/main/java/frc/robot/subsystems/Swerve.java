@@ -60,6 +60,8 @@ public class Swerve extends SuperSystem {
                                 );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
+        getTab().putInDashboard("BBB3", swerveModuleStates[3].angle.getDegrees(), false);
+
         for(SwerveModule mod : mSwerveMods){
             // SwerveModule mod = mSwerveMods[3];
             System.out.println("BBB " + mod.moduleNumber + " rotation: " +rotation +" check:"+ swerveModuleStates[mod.moduleNumber].angle);
@@ -115,15 +117,18 @@ public class Swerve extends SuperSystem {
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  
-        getTab().putInDashboard("encoder LF", mSwerveMods[Constants.Swerve.FL].getCanCoder().getDegrees(), false);
-        getTab().putInDashboard("encoder LB", mSwerveMods[Constants.Swerve.BL].getCanCoder().getDegrees(), false);
-        getTab().putInDashboard("encoder LB - check", mSwerveMods[Constants.Swerve.BL].getCanCoder().getDegrees(), false);
-        getTab().putInDashboard("encoder RF", mSwerveMods[Constants.Swerve.FR].getCanCoder().getDegrees(), false);
-        getTab().putInDashboard("encoder RB", mSwerveMods[Constants.Swerve.BR].getCanCoder().getDegrees(), false);
+        getTab().putInDashboard("encoder LF", mSwerveMods[Constants.Swerve.FL].angleEncoder.getSelectedSensorPosition(), false);
+        getTab().putInDashboard("encoder LB", mSwerveMods[Constants.Swerve.BL].angleEncoder.getSelectedSensorPosition(), false);
+        getTab().putInDashboard("encoder RF", mSwerveMods[Constants.Swerve.FR].angleEncoder.getSelectedSensorPosition(), false);
+        getTab().putInDashboard("encoder RB", mSwerveMods[Constants.Swerve.BR].angleEncoder.getSelectedSensorPosition(), false);
+        getTab().putInDashboard("encoder RB getAngle", mSwerveMods[Constants.Swerve.BR].getAngle().getDegrees(), false);
+        // getTab().putInDashboard("gyro ", this.getYaw().getDegrees(), false);
+        // getTab().putInDashboard("encoder LF", gyro, false);
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);   
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " lastAngle", mod.lastAngle.getDegrees());    
         }
     }
 }
