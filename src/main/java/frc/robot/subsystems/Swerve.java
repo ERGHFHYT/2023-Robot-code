@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.SwerveModule;
+import frc.robot.commands.ResetCommand;
 import frc.robot.dashboard.SuperSystem;
 import frc.robot.Constants;
 
@@ -41,6 +42,8 @@ public class Swerve extends SuperSystem {
             new SwerveModule(3, Constants.Swerve.Mod3.constants)
         };
 
+        // getTab().putInDashboard("Reset Sensors", new ResetCommand(this), false);
+
         swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
     }
 
@@ -59,8 +62,12 @@ public class Swerve extends SuperSystem {
                                     rotation)
                                 );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
-
-        getTab().putInDashboard("BBB3", swerveModuleStates[3].angle.getDegrees(), false);
+        getTab().putInDashboard("module 0 - vel", swerveModuleStates[0].speedMetersPerSecond, false);
+        getTab().putInDashboard("module 0 - angel", swerveModuleStates[0].angle.getDegrees(), false);
+        // getTab().putInDashboard("BBB3", swerveModuleStates[3].angle.getDegrees(), false);
+        getTab().putInDashboard("translation y", translation.getY(), false);
+        getTab().putInDashboard("translation x", translation.getX(), false);
+        getTab().putInDashboard("rotation", rotation, false);
 
         for(SwerveModule mod : mSwerveMods){
             // SwerveModule mod = mSwerveMods[3];
@@ -68,8 +75,10 @@ public class Swerve extends SuperSystem {
             // System.out.println(""+rotation +" check:"+ swerveModuleStates[mod.moduleNumber].angle);
             // getTab().putInDashboard(""+rotation, swerveModuleStates[mod.moduleNumber].angle,false);
             // getTab().putInDashboard(""+rotation, swerveModuleStates[mod.moduleNumber].angle,false);
-            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
+            // mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
+
+        mSwerveMods[3].setDesiredState(swerveModuleStates[3], isOpenLoop);
     }    
 
     /* Used by SwerveControllerCommand in Auto */

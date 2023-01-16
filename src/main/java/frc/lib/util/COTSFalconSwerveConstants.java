@@ -75,7 +75,7 @@ public class COTSFalconSwerveConstants {
 
         double angleKP = 0.001;
         double angleKI = 0.0;
-        double angleKD = 0.0;
+        double angleKD = 0.01;
         double angleKF = 0.0;
 
         boolean driveMotorInvert = false;

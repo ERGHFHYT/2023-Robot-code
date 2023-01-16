@@ -4,7 +4,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.math.Conversions;
 import frc.lib.util.CTREModuleState;
 import frc.lib.util.SwerveModuleConstants;
@@ -66,10 +66,43 @@ public class SwerveModule {
 
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){
         /* This is a custom optimize function, since default WPILib optimize assumes continuous controller which CTRE and Rev onboard is not */
-        desiredState = CTREModuleState.optimize(desiredState, getState().angle);
+        Rotation2d angle = getState().angle;
+        SmartDashboard.putNumber("desire state angle raw", desiredState.angle.getDegrees());
+        // desiredState = CTREModuleState.optimize(desiredState, angle);
+        desiredState = this.optimize(desiredState, angle);
+        SmartDashboard.putNumber("desire state angle", desiredState.angle.getDegrees());
+        SmartDashboard.putNumber("desire state Speed", desiredState.speedMetersPerSecond);
         // System.out.println("DDD desiredState: " + desiredState + " getState().angle: " + getState().angle + " isOpenLoop: " + isOpenLoop);
         setAngle(desiredState);
-        setSpeed(desiredState, isOpenLoop);
+        // setSpeed(desiredState, isOpenLoop);
+    }
+
+    private SwerveModuleState optimize(SwerveModuleState desiredState, Rotation2d currentAngle){
+        double targetSpeed = desiredState.speedMetersPerSecond;
+
+        double relativeAngle = currentAngle.getDegrees();
+        double absoluteAngle = this.toAbsoluteAngle(relativeAngle);
+
+        double desiredAngle = desiredState.angle.getDegrees() + 180;
+        double currAngle = absoluteAngle;
+
+        double delta = desiredAngle - currAngle;
+        double deltaSign = delta > 0? 1 : -1;
+
+        if (Math.abs(delta) > 270) {
+            delta = (360 - Math.abs(delta)) * deltaSign * -1;
+        } else if (Math.abs(delta) > 180) {
+            delta = (Math.abs(delta) - 180) * deltaSign;
+            targetSpeed *= -1;
+        } else if (Math.abs(delta) > 90) {
+            delta = (180 - Math.abs(delta)) * deltaSign * -1;
+            targetSpeed *= -1;
+        }
+   
+        double targetAngle = currAngle + delta;
+        targetAngle = relativeAngle + targetAngle;
+
+        return new SwerveModuleState(targetSpeed, Rotation2d.fromDegrees(targetAngle));
     }
 
     private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop){
@@ -94,21 +127,28 @@ public class SwerveModule {
         // System.out.println("CCC3 setting to " + Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio));
         // System.out.println("CCC4 get returns " + mAngleMotor.get());
         // mAngleMotor.set(Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio));
-            System.out.println("CCC5 setting " + angle.getDegrees());
-            System.out.println("CCC6 get angle " + getAngle().getDegrees());
-        angleController.setReference(angle.getDegrees(), ControlType.kPosition);
+            // System.out.println("CCC5 setting " + angle.getDegrees());
+            // System.out.println("CCC6 get angle " + getAngle().getDegrees());
+        angleController.setReference(angle.getDegrees() * 4, ControlType.kPosition);
     
         lastAngle = angle;
     }
 
-    
+    private double toAbsoluteAngle(double relativeAngle){
+        relativeAngle = relativeAngle % 360;
+        if (relativeAngle < 0) relativeAngle += 360;
+        return relativeAngle;
+    }
 
     public Rotation2d getAngle(){ //TODO: make private
-        return Rotation2d.fromDegrees(Conversions.falconToDegrees(angleEncoder.getSelectedSensorPosition(), Constants.Swerve.angleGearRatio));
+        double sensorAngle = this.getCanCoder().getDegrees() % 360;
+        if (sensorAngle < 0) sensorAngle += 360;
+        return Rotation2d.fromDegrees(sensorAngle);
     }
  
     public Rotation2d getCanCoder(){
-        return Rotation2d.fromDegrees(angleEncoder.getSelectedSensorPosition());
+        double sensorAngle = Conversions.falconToDegrees(angleEncoder.getSelectedSensorPosition(), Constants.Swerve.angleGearRatio);
+        return Rotation2d.fromDegrees(sensorAngle);
     }
 
     private void resetToAbsolute(){
@@ -151,7 +191,7 @@ public class SwerveModule {
     public SwerveModuleState getState(){
         return new SwerveModuleState(
             Conversions.falconToMPS(mDriveMotor.getSelectedSensorVelocity(), Constants.Swerve.wheelCircumference, Constants.Swerve.driveGearRatio), 
-            getAngle()
+            getCanCoder()
         ); 
     }
 

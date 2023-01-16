@@ -69,6 +69,7 @@ public class Robot extends TimedRobot {
       // getTab().putInDashboard(""+m_robotContainer.s_Swerve.getModulePositions()[i].angle,false);
       // }
     // System.out.println();
+    m_robotContainer.s_Swerve.periodic();
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */

@@ -22,16 +22,17 @@ public class RobotContainer {
     private final Joystick driver = new Joystick(0);
 
     /* Drive Controls */
-    private final int translationAxis = 0;
-    private final int strafeAxis = 1;
+    private final int translationAxis = 1;
+    private final int strafeAxis = 0;
     private final int rotationAxis = 4;
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton resetEncoder = new JoystickButton(driver, XboxController.Button.kA.value);
 
     /* Subsystems */
-    public final Swerve s_Swerve = new Swerve();  // TODO : make private
+    public static final Swerve s_Swerve = new Swerve();  // TODO : make private
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -39,8 +40,8 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> driver.getRawAxis(translationAxis), 
-                () -> -driver.getRawAxis(strafeAxis), 
+                () -> -driver.getRawAxis(translationAxis), 
+                () -> driver.getRawAxis(strafeAxis), 
                 () -> driver.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean()
             )
@@ -59,6 +60,8 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        resetEncoder.whileTrue(new ResetCommand(s_Swerve));
+        
     }
 
     /**
