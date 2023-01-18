@@ -50,6 +50,7 @@ public class SwerveModule {
 
         /* Angle Motor Config */
         mAngleMotor = new CANSparkMax(moduleConstants.angleMotorID, MotorType.kBrushless);
+        mAngleMotor.burnFlash();
           /* Angle Motor Config */
         integratedAngleEncoder = mAngleMotor.getEncoder();
         angleController = mAngleMotor.getPIDController();
@@ -67,15 +68,15 @@ public class SwerveModule {
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){
         /* This is a custom optimize function, since default WPILib optimize assumes continuous controller which CTRE and Rev onboard is not */
         Rotation2d angle = getState().angle;
-        SmartDashboard.putNumber("desire state angle raw", desiredState.angle.getDegrees());
+        SmartDashboard.putNumber("desire state angle raw", desiredState.angle.getDegrees() + 180);
         // desiredState = CTREModuleState.optimize(desiredState, angle);
         desiredState = this.optimize(desiredState, angle);
         SmartDashboard.putNumber("desire state angle", desiredState.angle.getDegrees());
         SmartDashboard.putNumber("desire state Speed", desiredState.speedMetersPerSecond);
         // System.out.println("DDD desiredState: " + desiredState + " getState().angle: " + getState().angle + " isOpenLoop: " + isOpenLoop);
         setAngle(desiredState);
-        // setSpeed(desiredState, isOpenLoop);
-    }
+        setSpeed(desiredState, isOpenLoop);
+    }   
 
     private SwerveModuleState optimize(SwerveModuleState desiredState, Rotation2d currentAngle){
         double targetSpeed = desiredState.speedMetersPerSecond;
@@ -100,7 +101,7 @@ public class SwerveModule {
         }
    
         double targetAngle = currAngle + delta;
-        targetAngle = relativeAngle + targetAngle;
+        targetAngle = relativeAngle + targetAngle - absoluteAngle;
 
         return new SwerveModuleState(targetSpeed, Rotation2d.fromDegrees(targetAngle));
     }
@@ -129,7 +130,7 @@ public class SwerveModule {
         // mAngleMotor.set(Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio));
             // System.out.println("CCC5 setting " + angle.getDegrees());
             // System.out.println("CCC6 get angle " + getAngle().getDegrees());
-        angleController.setReference(angle.getDegrees() * 4, ControlType.kPosition);
+        angleController.setReference(angle.getDegrees() * 5.333333333333333333, ControlType.kPosition);
     
         lastAngle = angle;
     }
@@ -147,7 +148,7 @@ public class SwerveModule {
     }
  
     public Rotation2d getCanCoder(){
-        double sensorAngle = Conversions.falconToDegrees(angleEncoder.getSelectedSensorPosition(), Constants.Swerve.angleGearRatio);
+        double sensorAngle = Conversions.falconToDegrees(-angleEncoder.getSelectedSensorPosition(), Constants.Swerve.angleGearRatio);
         return Rotation2d.fromDegrees(sensorAngle);
     }
 

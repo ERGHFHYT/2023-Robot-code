@@ -71,14 +71,14 @@ public class Swerve extends SuperSystem {
 
         for(SwerveModule mod : mSwerveMods){
             // SwerveModule mod = mSwerveMods[3];
-            System.out.println("BBB " + mod.moduleNumber + " rotation: " +rotation +" check:"+ swerveModuleStates[mod.moduleNumber].angle);
+            // System.out.println("BBB " + mod.moduleNumber + " rotation: " +rotation +" check:"+ swerveModuleStates[mod.moduleNumber].angle);
             // System.out.println(""+rotation +" check:"+ swerveModuleStates[mod.moduleNumber].angle);
             // getTab().putInDashboard(""+rotation, swerveModuleStates[mod.moduleNumber].angle,false);
             // getTab().putInDashboard(""+rotation, swerveModuleStates[mod.moduleNumber].angle,false);
-            // mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
+            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
 
-        mSwerveMods[3].setDesiredState(swerveModuleStates[3], isOpenLoop);
+        // mSwerveMods[2].setDesiredState(swerveModuleStates[2], isOpenLoop);
     }    
 
     /* Used by SwerveControllerCommand in Auto */
