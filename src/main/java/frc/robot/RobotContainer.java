@@ -22,7 +22,8 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
-    private RobotButtons robotButtons = new RobotButtons(driver);
+    private final Joystick systems = new Joystick(1);
+    private RobotButtons robotButtons = new RobotButtons(driver, systems);
 
     /* Drive Controls */
     private final int translationAxis = 1;
