@@ -38,7 +38,7 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve(robotButtons);
     private final ShootingSubsystem  m_ShootingSubsystem = new ShootingSubsystem();
-    private final CollectSubsyste m_CollectSubsyste = new CollectSubsyste();
+    private final CollectSubsystem m_collectSubsystem = new CollectSubsystem();
     private final armSubsystem m_ArmSubsystem = new armSubsystem();
     private final collectWheels m_CollectWheels = new collectWheels();
 
@@ -63,7 +63,7 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         configureSwerveButtons();
-        robotButtons.loadButtons(m_ShootingSubsystem, m_CollectSubsyste, m_ArmSubsystem, s_Swerve,m_CollectWheels);
+        robotButtons.loadButtons(m_ShootingSubsystem, m_collectSubsystem, m_ArmSubsystem, s_Swerve,m_CollectWheels);
     }
 
     /**
@@ -85,8 +85,8 @@ public class RobotContainer {
         return m_ShootingSubsystem;
     }
 
-    public CollectSubsyste getM_CollectSubsyste() {
-        return m_CollectSubsyste;
+    public CollectSubsystem getM_collectSubsystem() {
+        return m_collectSubsystem;
     }
 
     public armSubsystem getM_ArmSubsystem() {
