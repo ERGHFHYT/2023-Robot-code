@@ -20,21 +20,25 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.commands.armPosition;
+import frc.util.SuperInterface;
 import frc.util.SuperSystem;
 import frc.util.PID.Gains;
 import frc.util.motor.SuperSparkMax;
 import frc.util.motor.SuperTalonFX;
 
 // Yteam Example Subsystem
-public class armSubsystem extends SuperSystem {
+public class armSubsystem extends SuperSystem implements SuperInterface {
   public static SuperSparkMax ArmgMotor;
   public SuperSparkMax gripperMotor;
   public Gains grippergGains;
   public Gains armgGains;
+  // public double pos = 0;
+  // public double last_pos = 0;
+
 
   // Motors, Selenoid and Sensors declaration
   public armSubsystem() {
-    super("ShootingSubsystem");
+    super("ArmSystem");
     grippergGains = new Gains("grippergGains", 1.5, 0, 0);
     // armgGains = new Gains("armGains",0.04,0.0001,0.2); // human
     armgGains = new Gains("armGains", 0, 0, 0.000003, 0, 0.6, 0.04, 0); // second
@@ -45,6 +49,7 @@ public class armSubsystem extends SuperSystem {
         ControlType.kPosition, grippergGains, 0, 0, 0);
     // setDefaultCommand(new armPosition(this, 0));
     this.resetArmEncoder();
+    // getTab().putInDashboard("kp", 0, false);
   }
 
   /** Creates a new ExampleSubsystem. */
@@ -54,7 +59,9 @@ public class armSubsystem extends SuperSystem {
     SmartDashboard.putNumber("arm position", ArmgMotor.getPosition());
     SmartDashboard.putNumber("gripper position", gripperMotor.getPosition());
     SmartDashboard.putNumber("arm velocity", ArmgMotor.getVelocity());
-
+    // pos = getTab().getFromDashboard("kp", 0);
+    // if(last_pos != pos)ArmgMotor.getPIDController().setP(pos);
+    // last_pos = pos;
     // This method will be called once per scheduler run
   }
 
@@ -106,6 +113,12 @@ public class armSubsystem extends SuperSystem {
   public void SetTeleopDefault(){
     setArmOutput(0);
     // setDefaultCommand(null);
+  }
+
+  @Override
+  public void resetSensors(double pos) {
+    // TODO Auto-generated method stub
+    
   }
 }
 
