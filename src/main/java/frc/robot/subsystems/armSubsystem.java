@@ -32,8 +32,8 @@ public class armSubsystem extends SuperSystem implements SuperInterface {
   public SuperSparkMax gripperMotor;
   public Gains grippergGains;
   public Gains armgGains;
-  // public double pos = 0;
-  // public double last_pos = 0;
+  public double d = 0;
+  public double last_d = 0;
 
 
   // Motors, Selenoid and Sensors declaration
@@ -49,7 +49,7 @@ public class armSubsystem extends SuperSystem implements SuperInterface {
         ControlType.kPosition, grippergGains, 0, 0, 0);
     // setDefaultCommand(new armPosition(this, 0));
     this.resetArmEncoder();
-    // getTab().putInDashboard("kp", 0, false);
+    getTab().putInDashboard("kd", 0, false);
   }
 
   /** Creates a new ExampleSubsystem. */
@@ -59,12 +59,12 @@ public class armSubsystem extends SuperSystem implements SuperInterface {
     SmartDashboard.putNumber("arm position", ArmgMotor.getPosition());
     SmartDashboard.putNumber("gripper position", gripperMotor.getPosition());
     SmartDashboard.putNumber("arm velocity", ArmgMotor.getVelocity());
-    // pos = getTab().getFromDashboard("kp", 0);
-    // if(last_pos != pos)ArmgMotor.getPIDController().setP(pos);
-    // last_pos = pos;
+    d = getTab().getFromDashboard("kd", 0);
+    if(last_d != d)ArmgMotor.getPIDController().setD(d);
+    last_d = d;
     // This method will be called once per scheduler run
   }
-
+ 
   public void resetArmEncoder() {
     ArmgMotor.reset(0);
   }
