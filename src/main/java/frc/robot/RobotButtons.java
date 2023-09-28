@@ -1,6 +1,7 @@
 package frc.robot;
 
 import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
 import javax.swing.GroupLayout.Group;
 
@@ -51,6 +52,7 @@ public class RobotButtons {
     public static Joystick systems = new Joystick(1);
     public static Joystick driver = new Joystick(0);
     // driver jpoystick buttons
+    public static DoubleSupplier BreakValue = () -> driver.getRawAxis(XboxController.Axis.kRightTrigger.value);
     public Trigger resetGyro = new Trigger(() -> driver.getRawButton(XboxController.Button.kLeftBumper.value));
     public static Trigger Balance = new Trigger(() -> driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0.3);
     public Trigger stop = new Trigger(() -> driver.getRawButton(XboxController.Button.kBack.value));
