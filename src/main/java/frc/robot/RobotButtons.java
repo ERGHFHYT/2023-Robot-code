@@ -31,13 +31,18 @@ import frc.robot.commands.ArmCommands.armCollectOutput;
 import frc.robot.commands.IntakeCommands.OpenIntakeAndArm;
 import frc.robot.commands.IntakeCommands.collectWheelsCommand;
 import frc.robot.commands.IntakeCommands.setPointCollectCommand;
+import frc.robot.commands.NewArm.GipperCommand;
+import frc.robot.commands.NewArm.NewArmCommand;
 import frc.robot.commands.ShootingCommnads.CartridgeOutputCommand;
 import frc.robot.commands.ShootingCommnads.CubeFixtureGroupCommand;
 import frc.robot.commands.resetCommand;
 import frc.robot.subsystems.CollectSubsystem;
+import frc.robot.subsystems.GripperSubsys;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CartridgeSubsystem;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.armCollectSubsystem;
+// import frc.robot.subsystems.armCollectSubsystem;
 import frc.robot.subsystems.collectWheelsSubsystem;
 import frc.robot.subsystems.shootingSubsystem;
 import frc.util.vision.Limelight;
@@ -78,14 +83,15 @@ public class RobotButtons {
     // public Trigger shootingHighMeow = new Trigger(() -> !(systems.getPOV() == 0));
     public Trigger shootingFixture = new Trigger(() -> systems.getPOV() == 270);
     public Trigger shootinghMid = new Trigger(() -> systems.getPOV() == 90);
-    public Trigger openArmCollect = new Trigger(() -> systems.getRawButton(XboxController.Button.kY.value));
-    public Trigger closeArmCollect = new Trigger(() -> systems.getRawButton(XboxController.Button.kX.value));
-    public Trigger resetArmCollect = new Trigger(() -> systems.getRawButton(XboxController.Button.kA.value));
+    // public Trigger openArmCollect = new Trigger(() -> systems.getRawButton(XboxController.Button.kY.value));
+    public Trigger gripperTriggerOut = new Trigger(() -> systems.getRawButton(XboxController.Button.kX.value));
+    public Trigger restArm = new Trigger(() -> systems.getRawButton(XboxController.Button.kA.value));
     public Trigger reverseShooterTrigger = new Trigger(() -> systems.getRawButton(XboxController.Button.kRightBumper.value));
     public static Trigger forwardShooterTrigger = new Trigger(() -> systems.getRawButton(XboxController.Button.kLeftBumper.value));
-    public Trigger resetTrigger = new Trigger(() -> systems.getRawButton(XboxController.Button.kB.value));
+    public Trigger gripperTriggerIn = new Trigger(() -> systems.getRawButton(XboxController.Button.kB.value));
     public Trigger SeconderyResetTrigger = new Trigger(() -> systems.getRawButton(XboxController.Button.kBack.value));
-    
+     public Trigger testArmTrigger = new Trigger(() -> systems.getRawButton(XboxController.Button.kY.value));
+
 
     /**
      * @param shootingSubsystem
@@ -94,7 +100,7 @@ public class RobotButtons {
      * @param swerve
      */
     public void loadButtons(shootingSubsystem shootingSubsystem, CollectSubsystem collectSubsystem,
-             Swerve swerve,collectWheelsSubsystem collectWheels, Limelight limelight, armCollectSubsystem armCollectSubsystem,CartridgeSubsystem cartridgeSubsystem) {
+             Swerve swerve,collectWheelsSubsystem collectWheels, Limelight limelight, armCollectSubsystem armCollectSubsystem,CartridgeSubsystem cartridgeSubsystem, ArmSubsystem armSubsystem, GripperSubsys gripperSubsys) {
         // driver joystick commands
         swerve.setDefaultCommand(
             new TeleopSwerve(
@@ -122,8 +128,7 @@ public class RobotButtons {
         collectWheelsBack.whileTrue(new OpenIntakeAndArm(collectSubsystem, collectWheels, armCollectSubsystem, 0.7, 0.15, Constants.COLLECT_OPEN_POSITION, Constants.ARM_OPEN_POSITION));
         // .whileTrue(new collectWheelsCommand(collectWheels, 0.7, 0.5));
         
-        resetArmCollect.onTrue(new armCollectOutput(armCollectSubsystem, -0.2, 0));
-
+        
         shootingHigh.onTrue(new ShootingGroupCommand(shootingSubsystem, armCollectSubsystem, cartridgeSubsystem, Constants.SHOOTING_HIGH));
         shootinghMid.onTrue(new ShootingGroupCommand(shootingSubsystem, armCollectSubsystem, cartridgeSubsystem , Constants.SHOOTING_MID));
         shootingLow.onTrue(new ShootingGroupCommand(shootingSubsystem, armCollectSubsystem, cartridgeSubsystem , Constants.SHOOTING_LOW));
@@ -131,13 +136,17 @@ public class RobotButtons {
         // shootingFixture.onTrue(new CubeFixtureGroupCommand(cartridgeSubsystem, 0, 0.15, 1400, -0.2, 20));
         reverseShooterTrigger.whileTrue(new ShootingCommand(shootingSubsystem, cartridgeSubsystem, armCollectSubsystem,-0.3, 0));
         forwardShooterTrigger.whileTrue(new ShootingCommand(shootingSubsystem, cartridgeSubsystem, armCollectSubsystem,0.5, 0));
-
-
-        openArmCollect.onTrue(new InstantCommand(() -> armCollectSubsystem.setArmCollectPosition(Constants.ARM_OPEN_POSITION)));
-        closeArmCollect.onTrue(new InstantCommand(() -> armCollectSubsystem.setArmCollectPosition(0)));
+        
+        // testArmTrigger.onTrue(new NewArmCommand(armSubsystem, -15.5, 15, 0));
+        testArmTrigger.onTrue(new NewArmCommand(armSubsystem, -30, 15, 0));
+        restArm.onTrue(new NewArmCommand(armSubsystem, -7, 0, 0));
+        gripperTriggerIn.whileTrue(new GipperCommand(gripperSubsys, 0.5));
+        gripperTriggerOut.whileTrue(new GipperCommand(gripperSubsys, -0.5));
+        // openArmCollect.onTrue(new InstantCommand(() -> armCollectSubsystem.setArmCollectPosition(Constants.ARM_OPEN_POSITION)));
+        // closeArmCollect.onTrue(new InstantCommand(() -> armCollectSubsystem.setArmCollectPosition(0)));
         
         
-        resetTrigger.and(SeconderyResetTrigger).onTrue(new resetCommand(shootingSubsystem, collectSubsystem, armCollectSubsystem, cartridgeSubsystem));
+        // resetTrigger.and(SeconderyResetTrigger).onTrue(new resetCommand(shootingSubsystem, collectSubsystem, armCollectSubsystem, cartridgeSubsystem));
         
         // OpenCollect.whileFalse(new IntakeAndArm(collectSubsystem, collectWheels, armCollectSubsystem, 0, 0, 0, 0));
         

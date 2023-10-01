@@ -45,6 +45,8 @@ public class RobotContainer {
     private final CollectSubsystem m_CollectSubsystem = new CollectSubsystem();
     private final armCollectSubsystem m_armCollectSubsystem = new armCollectSubsystem();
     private final CartridgeSubsystem m_cartridgeSubsystem = new CartridgeSubsystem();
+    private final ArmSubsystem armSubsystem = new ArmSubsystem();
+    private final GripperSubsys gripperSubsys = new GripperSubsys();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public final CenterFarFromHumanCube CenterFarFromHumanCube = new CenterFarFromHumanCube(s_Swerve,  m_CollectSubsystem, m_cartridgeSubsystem,
@@ -75,7 +77,7 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        robotButtons.loadButtons(m_ShootingSubsystem, m_CollectSubsystem,  s_Swerve, m_CollectWheels, limelight, m_armCollectSubsystem, m_cartridgeSubsystem);
+        robotButtons.loadButtons(m_ShootingSubsystem, m_CollectSubsystem,  s_Swerve, m_CollectWheels, limelight, m_armCollectSubsystem, m_cartridgeSubsystem,armSubsystem,gripperSubsys);
     }
  
     /**
