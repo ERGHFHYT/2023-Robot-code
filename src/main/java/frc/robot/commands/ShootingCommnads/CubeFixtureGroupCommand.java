@@ -7,7 +7,6 @@ package frc.robot.commands.ShootingCommnads;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.CartridgeSubsystem;
-import frc.robot.subsystems.armCollectSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

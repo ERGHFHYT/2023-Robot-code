@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.CartridgeSubsystem;
-import frc.robot.subsystems.armCollectSubsystem;
 import frc.robot.subsystems.shootingSubsystem;
 
 public class ShootingCommand extends CommandBase {
@@ -21,7 +20,7 @@ public class ShootingCommand extends CommandBase {
   private double CartridgeOutput;
   private Timer timer = new Timer();
   /** Creates a new ShootingCommand. */
-  public ShootingCommand(shootingSubsystem shootingSubsystem, CartridgeSubsystem cartridgeSubsystem, armCollectSubsystem armCollectSubsystem, double ShootingOutput, double CartridgeOutput) {
+  public ShootingCommand(shootingSubsystem shootingSubsystem, CartridgeSubsystem cartridgeSubsystem, double ShootingOutput, double CartridgeOutput) {
   this.shootingSubsystem = shootingSubsystem;
   this.cartridgeSubsystem = cartridgeSubsystem;
   this.ShootingOutput = ShootingOutput;

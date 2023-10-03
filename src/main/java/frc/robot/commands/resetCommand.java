@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.CollectSubsystem;
 import frc.robot.subsystems.CartridgeSubsystem;
 import frc.robot.subsystems.shootingSubsystem;
-import frc.robot.subsystems.armCollectSubsystem;
 
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,14 +16,12 @@ import frc.robot.subsystems.armCollectSubsystem;
 public class resetCommand extends InstantCommand {
   private final shootingSubsystem shootingSubsystem;
   private final CollectSubsystem collectSubsystem;
-  private final armCollectSubsystem armCollectSubsystem;
   private final CartridgeSubsystem cartridgeSubsystem;
 
 
-  public resetCommand(shootingSubsystem shootingSubsystem, CollectSubsystem collectSubsystem,  armCollectSubsystem armCollectSubsystem, CartridgeSubsystem cartridgeSubsystem) {
+  public resetCommand(shootingSubsystem shootingSubsystem, CollectSubsystem collectSubsystem,   CartridgeSubsystem cartridgeSubsystem) {
     this.shootingSubsystem = shootingSubsystem;
     this.collectSubsystem = collectSubsystem;
-    this.armCollectSubsystem = armCollectSubsystem;
     this.cartridgeSubsystem = cartridgeSubsystem;
   }
   // Called when the command is initially scheduled.
@@ -32,7 +29,6 @@ public class resetCommand extends InstantCommand {
   public void initialize(){
     // shootingSubsystem.resetEncoder();
     collectSubsystem.resetEncoder();
-    armCollectSubsystem.resetArmCollectEncoder();
     cartridgeSubsystem.resetEncoder();    
 }
 }

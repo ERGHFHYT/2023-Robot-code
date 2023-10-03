@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants;
-import frc.robot.commands.ArmCommands.ResetArmCommand;
 import frc.robot.commands.NewArm.DisableArm;
 import frc.util.dashboard.SuperSubSystemTab;
 import frc.util.SuperSystem;
@@ -52,7 +51,7 @@ public class ArmSubsystem extends SuperSystem {
     armMidGains = new Gains("armMidGains", 0, 0, 0.04, 0, 0.0002, 0.001, 0 );
     downMicroSwitchBase = new DigitalInput(Constants.ARM_DOWN_MICROSWITCH);
     downMicroSwitchMid = new DigitalInput(1);
-      middleArmMotor = new SuperSparkMax(18, MotorType.kBrushless, 30, false, 1, 1, IdleMode.kBrake,
+      middleArmMotor = new SuperSparkMax(18, MotorType.kBrushless, 30, true, 1, 1, IdleMode.kBrake,
       ControlType.kSmartMotion, armMidGains, 1, 1, 0);
       baseArmMotor = new SuperSparkMax(20, MotorType.kBrushless, 40, false, 1, 1, IdleMode.kBrake,
       ControlType.kSmartMotion, armBaseGains, 1, 1, 0);

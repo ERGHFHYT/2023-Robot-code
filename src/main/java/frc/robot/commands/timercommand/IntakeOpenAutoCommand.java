@@ -8,9 +8,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.IntakeCommands.setPointCollectCommand;
+import frc.robot.commands.IntakeCommands.CollectPosition;
 import frc.robot.subsystems.CollectSubsystem;
-import frc.robot.subsystems.armCollectSubsystem;
 import frc.robot.subsystems.collectWheelsSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -18,7 +17,7 @@ import frc.robot.subsystems.collectWheelsSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeOpenAutoCommand extends SequentialCommandGroup {
   /** Creates a new IntakeAutoCommand. */
-  public IntakeOpenAutoCommand(CollectSubsystem collectSubsystem, armCollectSubsystem armCollectSubsystem,collectWheelsSubsystem collectWheels, double collectPoint, double armCollectPoint, double delayOpenIntake , double deadLineIntake) {
+  public IntakeOpenAutoCommand(CollectSubsystem collectSubsystem,collectWheelsSubsystem collectWheels, double collectPoint, double armCollectPoint, double delayOpenIntake , double deadLineIntake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

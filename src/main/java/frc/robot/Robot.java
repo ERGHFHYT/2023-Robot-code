@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.autoCommands.Next2HumanCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CartridgeSubsystem;
 import frc.robot.subsystems.Swerve;
@@ -102,12 +101,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     if (m_chooser.getSelected().equals(centerFarFromHumanCubeAuto)) m_autonomousCommand = m_robotContainer.getCenterFarFromHumanCube();
     else if (m_chooser.getSelected().equals(centerCloseToHumanCubeAuto)) m_autonomousCommand = m_robotContainer.getCenterCloseToHumanCube();
-    else if (m_chooser.getSelected().equals(Next2Human)) m_autonomousCommand = m_robotContainer.getNext2Human();
     else if (m_chooser.getSelected().equals(test)) m_autonomousCommand = m_robotContainer.getTest();
     else if (m_chooser.getSelected().equals(justShootAtuo)) m_autonomousCommand = m_robotContainer.getJustShootAtuo();
-    else if (m_chooser.getSelected().equals(FarFromHumanCube)) m_autonomousCommand = m_robotContainer.getFarFromHumanCube();
-    else if (m_chooser.getSelected().equals(Center3Cubes)) m_autonomousCommand = m_robotContainer.getFarFromHumanCube();
-    else if (m_chooser.getSelected().equals(Next2Human3Cubes)) m_autonomousCommand = m_robotContainer.getNext2Human3Cubes();
     else m_autonomousCommand = m_robotContainer.getCenterFarFromHumanCube();
     // switch(m_chooser.getSelected()){
     //   case centerAuto:

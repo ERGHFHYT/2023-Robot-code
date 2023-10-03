@@ -5,7 +5,6 @@
 package frc.robot.commands.NewArm;
 
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.armCollectSubsystem;
 
 import javax.sql.rowset.spi.SyncResolver;
 
@@ -16,46 +15,42 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /** An example command that uses an example subsystem. */
 public class NewArmCommand extends CommandBase {
-  private final ArmSubsystem armCollect;
+  private final ArmSubsystem armSubsystem;
    private double positionBase;
   private double positionMid;
-  private double seconds;
-  private boolean isFinished;
-  private Timer timer = new Timer();
+
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public NewArmCommand(ArmSubsystem armCollect, double positionMid , double positionBase, double seconds) {
-    this.armCollect = armCollect;
+  public NewArmCommand(ArmSubsystem armSubsystem, double positionMid , double positionBase) {
+    this.armSubsystem = armSubsystem;
     this.positionBase = positionBase;
     this.positionMid = positionMid;
-    this.seconds = seconds;
+ 
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(armCollect);
+    addRequirements(armSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.reset();
-    timer.start();
-    isFinished = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() { 
+    armSubsystem.setArmMidAndBase(positionMid , positionBase);
   }
   
   // Called once the command ends or is interrupted.
   @Override
   
   public void end(boolean interrupted) {
-    armCollect.setArmMidAndBase(positionMid , positionBase);
+   
     // timer.delay(1);
     // armCollect.setArmCollectPosition(0);
     
@@ -64,14 +59,12 @@ public class NewArmCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (seconds == 0){
-      isFinished = true;
-    }
-    else if(timer.hasElapsed(seconds)){
-      // System.out.println("rrrrrrrrrrrrrrrr entered! " + position);
-      isFinished = true;
-    }
-    return isFinished;
+ if (armSubsystem.getBasePosition() > 14 && armSubsystem.getMidPosition() > 21 ){
+  return true;
+ } else{
+return false;
+
+ }
   }
 }
 

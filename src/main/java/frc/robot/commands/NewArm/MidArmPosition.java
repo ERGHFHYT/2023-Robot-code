@@ -14,22 +14,19 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /** An example command that uses an example subsystem. */
-public class CloseArm extends CommandBase {
+public class MidArmPosition extends CommandBase {
   private final ArmSubsystem armSubsystem;
-   private double positionBase;
   private double positionMid;
-
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public CloseArm(ArmSubsystem armSubsystem, double positionMid , double positionBase) {
+  public MidArmPosition(ArmSubsystem armSubsystem, double positionMid) {
     this.armSubsystem = armSubsystem;
-    this.positionBase = positionBase;
     this.positionMid = positionMid;
-    
+
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);
@@ -38,39 +35,30 @@ public class CloseArm extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    if ((armSubsystem.getBasePosition() < 14 && armSubsystem.getMidPosition() >  33 )|| (armSubsystem.getBasePosition() < 13 && armSubsystem.getMidPosition() > 28)){
-      System.out.println("11111111");
-      armSubsystem.setBaseArmPosition(16);
-    }
-    else if ((armSubsystem.getBasePosition() > 13 && armSubsystem.getMidPosition() >  25)){
-      System.out.println("2222222222");
-      armSubsystem.setMiddleArmPosition(22);
-    }    
-    else if((armSubsystem.getBasePosition() > 12 && armSubsystem.getMidPosition() <  25) ||(armSubsystem.getBasePosition() > 12 && armSubsystem.getMidPosition() >  25 )){
-      System.out.println("3333333333");
-      armSubsystem.setArmMidAndBase(-1.5, -1.2);
-    }
- 
+  public void execute() { 
+    armSubsystem.setMiddleArmPosition(positionMid);
   }
   
-
   // Called once the command ends or is interrupted.
   @Override
   
   public void end(boolean interrupted) {
-    armSubsystem.setArmMidAndBase(0, 0);
+    
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return armSubsystem.isShootingDownBase() && armSubsystem.isShootingDownMid();
+    if (armSubsystem.getMidPosition() > 33){
+      return true;
+    }else{
+      return false;
+    }
   }
 }
 

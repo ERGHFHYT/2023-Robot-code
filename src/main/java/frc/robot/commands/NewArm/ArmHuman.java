@@ -5,7 +5,6 @@
 package frc.robot.commands.NewArm;
 
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.armCollectSubsystem;
 
 import javax.sql.rowset.spi.SyncResolver;
 
@@ -24,10 +23,10 @@ public class ArmHuman extends CommandBase {
   /**
    * Creates a new ExampleCommand.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param subsystem The subsysStem used by this command.
    */
   public 
-  ArmHuman(ArmSubsystem armSubsystem, double positionMid , double positionBase, double seconds) {
+  ArmHuman(ArmSubsystem armSubsystem, double positionMid , double positionBase) {
     this.armSubsystem = armSubsystem;
     this.positionBase = positionBase;
     this.positionMid = positionMid;

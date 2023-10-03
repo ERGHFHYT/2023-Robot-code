@@ -12,7 +12,6 @@ import frc.lib.util.SwerveModuleConstants;
 import frc.robot.subsystems.CartridgeSubsystem;
 import frc.robot.subsystems.CollectSubsystem;
 import frc.robot.subsystems.Swerve;
-import frc.robot.subsystems.armCollectSubsystem;
 import frc.robot.subsystems.collectWheelsSubsystem;
 import frc.robot.subsystems.shootingSubsystem;
 import frc.util.vision.Limelight;
@@ -109,7 +108,6 @@ public final class Constants {
 
 
     public static final class SubsystemsConstants{
-        private final armCollectSubsystem armCollectSubsystem;
         private final CartridgeSubsystem cartridgeSubsystem;
         private final CollectSubsystem collectSubsystem;
         private final collectWheelsSubsystem collectWheelsSubsystem;
@@ -117,12 +115,11 @@ public final class Constants {
         private final Swerve swerve;
         private final Limelight limelight;
 
-        public SubsystemsConstants(armCollectSubsystem armCollectSubsystem,
+        public SubsystemsConstants(
                 CartridgeSubsystem cartridgeSubsystem, CollectSubsystem collectSubsystem,
                 collectWheelsSubsystem collectWheelsSubsystem,
                 shootingSubsystem shootingSubsystem, Swerve swerve, Limelight limelight) 
             {
-            this.armCollectSubsystem = armCollectSubsystem;
             this.cartridgeSubsystem = cartridgeSubsystem;
             this.collectSubsystem = collectSubsystem;
             this.collectWheelsSubsystem = collectWheelsSubsystem;
@@ -131,9 +128,7 @@ public final class Constants {
             this.limelight = limelight;
             }
 
-        public armCollectSubsystem getArmCollectSubsystem() {
-            return armCollectSubsystem;
-        }
+
 
         public CartridgeSubsystem getCartridgeSubsystem() {
             return cartridgeSubsystem;

@@ -8,23 +8,21 @@ import javax.swing.text.Position;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CollectSubsystem;
-import frc.robot.subsystems.armCollectSubsystem;
 
 public class timeSetPointCollectCommand extends CommandBase {
   private  CollectSubsystem collectSubsystem;
-  private armCollectSubsystem armCollectSubsystem;
+  private ArmSubsystem armSubsystem;
   private double collectPoint;
   private Timer timer = new Timer();
   private double timeOfFunctioning;
   private double delay;
-  private double armCollectPoint;
   /** Creates a new setPoitCollectCommand. */
-  public timeSetPointCollectCommand(CollectSubsystem collectSubsystem, armCollectSubsystem armCollectSubsystem, double collectPoint, double armCollectPoint, double timeOfFunctioning, double delay) {
+  public timeSetPointCollectCommand(CollectSubsystem collectSubsystem, ArmSubsystem armSubsystem,double collectPoint, double timeOfFunctioning, double delay) {
     this.collectSubsystem = collectSubsystem;
-    this.armCollectSubsystem = armCollectSubsystem;
+    this.armSubsystem =armSubsystem;
     this.collectPoint = collectPoint;
-    this.armCollectPoint = armCollectPoint;
     this.timeOfFunctioning = timeOfFunctioning;
     this.delay = delay;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -37,7 +35,7 @@ public class timeSetPointCollectCommand extends CommandBase {
     timer.reset();
     timer.start();
     collectSubsystem.setPosition(collectPoint);
-    // armCollectSubsystem.setArmCollectPosition(armCollectPoint); TODO 2.10
+    armSubsystem.setArmMidAndBase(30, 15);
     // collectSubsystem.setPosition(point);
   }
 
