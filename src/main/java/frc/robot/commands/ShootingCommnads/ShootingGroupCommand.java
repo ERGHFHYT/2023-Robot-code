@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.ShootingConstants;
 import frc.robot.commands.ArmCommands.ArmCollectCommand;
+import frc.robot.commands.NewArm.NewArmCommand;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CartridgeSubsystem;
 import frc.robot.subsystems.armCollectSubsystem;
 import frc.robot.subsystems.shootingSubsystem;
@@ -21,12 +23,12 @@ import frc.robot.subsystems.shootingSubsystem;
 public class ShootingGroupCommand extends ParallelDeadlineGroup {
 
   public ShootingGroupCommand(shootingSubsystem shootingSubsystem, armCollectSubsystem armCollectSubsystem,
-      CartridgeSubsystem cartridgeSubsystem, ShootingConstants shootingConstants) {
+      CartridgeSubsystem cartridgeSubsystem, ShootingConstants shootingConstants, ArmSubsystem armSubsystem) {
     super(
         new WaitCommand(1.5),
-        new ArmCollectCommand(armCollectSubsystem, shootingConstants.getArmPosition(), shootingConstants.getArmSeconds()),
+        new NewArmCommand(armSubsystem, -30, 15, 0),
         new SequentialCommandGroup(
-            new WaitCommand(0.2),
+            new WaitCommand(0.3),
             new ShootingCommand(shootingSubsystem, cartridgeSubsystem, armCollectSubsystem, shootingConstants.getShootingWheelsOutput(), shootingConstants.getCartridgeOutput())
         )
     );

@@ -39,8 +39,8 @@ public class FarFromHumanCube extends SequentialCommandGroup {
     new ShootingCommand(shootingSubsystem, cartridgeSubsystem, armCollectSubsystem, 0.75, 0.3),
     new StartAuto(AutoCommand.getAutoCommand(swerve, "far from human + cube - start", 3), armCollectSubsystem, swerve),
     new moveInParallel(swerve, collectSubsystem, collectWheels, armCollectSubsystem, cartridgeSubsystem, AutoCommand.getAutoCommand(swerve, "far from human + cube", 3), Constants.COLLECT_OPEN_POSITION, Constants.ARM_OPEN_POSITION, 1.7, 0.2, false),
-    new LimelightCommand(limelight, swerve, true, -0.2, 0),
-    new ShootingGroupCommand(shootingSubsystem, armCollectSubsystem, cartridgeSubsystem , Constants.SHOOTING_LOW)
+    new LimelightCommand(limelight, swerve, true, -0.2, 0)
+    // new ShootingGroupCommand(shootingSubsystem, armCollectSubsystem, cartridgeSubsystem , Constants.SHOOTING_LOW)
     );
   }
 }

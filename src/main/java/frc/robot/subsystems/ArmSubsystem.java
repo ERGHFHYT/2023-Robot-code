@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants;
 import frc.robot.commands.ArmCommands.ResetArmCommand;
+import frc.robot.commands.NewArm.DisableArm;
 import frc.util.dashboard.SuperSubSystemTab;
 import frc.util.SuperSystem;
 import frc.util.PID.Gains;
@@ -47,12 +48,12 @@ public class ArmSubsystem extends SuperSystem {
   // Motors, Selenoid and Sensors declaration
   public ArmSubsystem() {
     super("arm");
-    armBaseGains = new Gains("armBaseGains", 0, 0, 0.05, 0.000, 0.0002, 0.001, 0);
+    armBaseGains = new Gains("armBaseGains", 0, 0, 0.05, 0.000, 0.00035, 0.001, 0);
     armMidGains = new Gains("armMidGains", 0, 0, 0.04, 0, 0.0002, 0.001, 0 );
     downMicroSwitchBase = new DigitalInput(Constants.ARM_DOWN_MICROSWITCH);
     downMicroSwitchMid = new DigitalInput(1);
       middleArmMotor = new SuperSparkMax(18, MotorType.kBrushless, 30, false, 1, 1, IdleMode.kBrake,
-      ControlType.kSmartMotion, armMidGains, 2, 6, 0);
+      ControlType.kSmartMotion, armMidGains, 1, 1, 0);
       baseArmMotor = new SuperSparkMax(20, MotorType.kBrushless, 40, false, 1, 1, IdleMode.kBrake,
       ControlType.kSmartMotion, armBaseGains, 1, 1, 0);
       this.resetBaseArmEncoder();
@@ -138,8 +139,28 @@ public class ArmSubsystem extends SuperSystem {
     
   }
 
+  public double getBasePosition(){
+    
+    return baseArmMotor.getPosition();
+    
+  }
+
+  public double getMidPosition(){
+    
+    return middleArmMotor.getPosition();
+    
+  }
+
   public boolean isShootingDownBase(){
     return downMicroSwitchBase.get();
+}
+
+public void SetDisable(){
+  // setDefaultCommand(new DisableArm(this));
+}
+
+public void SetTeleop(){
+  // setDefaultCommand
 }
 }
 

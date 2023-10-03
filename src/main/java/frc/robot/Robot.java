@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.autoCommands.Next2HumanCommand;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CartridgeSubsystem;
 import frc.robot.subsystems.Swerve;
 
@@ -27,6 +28,7 @@ import frc.robot.subsystems.Swerve;
  */
 public class Robot extends TimedRobot {
   public static CTREConfigs ctreConfigs;
+  public ArmSubsystem armSubsystem;
   private Command m_autonomousCommand;
   public static RobotContainer m_robotContainer;
   private static final String centerFarFromHumanCubeAuto = "Center far from human cube";
@@ -63,6 +65,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     CameraServer.startAutomaticCapture();
     m_robotContainer = new RobotContainer();
+    armSubsystem = m_robotContainer.getArmSubsystem();
   }
 
   /**
@@ -85,6 +88,9 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+    // armSubsystem.baseArmMotor.setIdleMode(IdleMode.kCoast);
+    armSubsystem.middleArmMotor.setIdleMode(IdleMode.kCoast);
+    armSubsystem.SetDisable();
   }
 
   @Override
@@ -143,7 +149,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_robotContainer.getS_Swerve().zeroGyro();
-   
+    armSubsystem.SetTeleop();
+    armSubsystem.baseArmMotor.setIdleMode(IdleMode.kBrake);
+    armSubsystem.middleArmMotor.setIdleMode(IdleMode.kBrake);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

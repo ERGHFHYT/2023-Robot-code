@@ -15,6 +15,7 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.armCollectSubsystem;
 import frc.robot.commands.timercommand.timeSetPointCollectCommand;
 import frc.robot.subsystems.CollectSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CartridgeSubsystem;
 import frc.robot.subsystems.collectWheelsSubsystem;
 import frc.robot.subsystems.shootingSubsystem;
@@ -35,7 +36,7 @@ public class CenterCloseToHumanCube extends SequentialCommandGroup {
   public CenterCloseToHumanCube(Swerve swerve,
   CollectSubsystem collectSubsystem,
   CartridgeSubsystem cartridgeSubsystem,
-  collectWheelsSubsystem collectWheels, shootingSubsystem shootingSubsystem, armCollectSubsystem armCollectSubsystem
+  collectWheelsSubsystem collectWheels, shootingSubsystem shootingSubsystem, armCollectSubsystem armCollectSubsystem, ArmSubsystem armSubsystem
 ) {
 
     
@@ -60,7 +61,7 @@ public class CenterCloseToHumanCube extends SequentialCommandGroup {
     new TurnToZeroCommand(swerve),
     new lockWheelsCommnad(swerve, true),
     // new ShootingCommand(shootingSubsystem, cartridgeSubsystem, armCollectSubsystem, 0.75, 0.3)
-    new ShootingGroupCommand(shootingSubsystem, armCollectSubsystem, cartridgeSubsystem, Constants.SHOOTING_AUTO_HIGH)
+    new ShootingGroupCommand(shootingSubsystem, armCollectSubsystem, cartridgeSubsystem, Constants.SHOOTING_AUTO_HIGH, armSubsystem)
     )),
       new lockWheelsCommnad(swerve)
     );  

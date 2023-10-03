@@ -15,7 +15,6 @@ import frc.robot.subsystems.shootingSubsystem;
 public class ShootingCommand extends CommandBase {
   private final shootingSubsystem shootingSubsystem;
   private final CartridgeSubsystem cartridgeSubsystem;
-  private final armCollectSubsystem armCollectSubsystem;
   private double ShootingOutput;
   private boolean isShootingUp = false;
   private double RPM;
@@ -25,7 +24,6 @@ public class ShootingCommand extends CommandBase {
   public ShootingCommand(shootingSubsystem shootingSubsystem, CartridgeSubsystem cartridgeSubsystem, armCollectSubsystem armCollectSubsystem, double ShootingOutput, double CartridgeOutput) {
   this.shootingSubsystem = shootingSubsystem;
   this.cartridgeSubsystem = cartridgeSubsystem;
-  this.armCollectSubsystem = armCollectSubsystem;
   this.ShootingOutput = ShootingOutput;
   this.RPM = RPM;
   this.CartridgeOutput = CartridgeOutput;

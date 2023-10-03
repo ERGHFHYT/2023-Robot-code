@@ -49,7 +49,7 @@ public class Next2HumanCommand extends SequentialCommandGroup {
     new ShootingCommand(shootingSubsystem, cartridgeSubsystem, armCollectSubsystem, 0.75, 0.3),
     new InstantCommand(() -> collectSubsystem.setPosition(290)),
     new StartAuto(AutoCommand.getAutoCommand(swerve, "Next 2 Human - start", 5), armCollectSubsystem, swerve),
-    new InstantCommand(() -> armCollectSubsystem.setArmCollectPosition(Constants.ARM_OPEN_POSITION)),
+    // new InstantCommand(() -> armCollectSubsystem.setArmCollectPosition(Constants.ARM_OPEN_POSITION)),
     new ParallelDeadlineGroup(
       AutoCommand.getAutoCommand(swerve, "next 2 human & 1 cube", 2),
       new TimerCollectWheels(collectWheels, Constants.COLLECT_WHEELS_OUTPUT, Constants.CENTERING_WHEELS_OUTPUT, 3, 0.3),
@@ -60,7 +60,7 @@ public class Next2HumanCommand extends SequentialCommandGroup {
       new AutoCubeFixture(cartridgeSubsystem, 2)
     ),
     new TurnToZeroCommand(swerve),
-    new ShootingGroupCommand(shootingSubsystem, armCollectSubsystem, cartridgeSubsystem , Constants.SHOOTING_LOW),
+    // new ShootingGroupCommand(shootingSubsystem, armCollectSubsystem, cartridgeSubsystem , Constants.SHOOTING_LOW, ),
     new StartAuto(AutoCommand.getAutoCommand(swerve, "Next 2 Human - start", 3), armCollectSubsystem, swerve)
     ); 
   }

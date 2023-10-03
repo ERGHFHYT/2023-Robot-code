@@ -6,22 +6,24 @@ package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CollectSubsystem;
 import frc.robot.subsystems.armCollectSubsystem;
 
 public class setPointCollectCommand extends CommandBase {
   private final CollectSubsystem collectSubsystem;
-  private final armCollectSubsystem armCollectSubsystem;
+  private final ArmSubsystem armSubsystem;
   // private final armCollect armCollect;
   private double collectPoint;
-  private double armCollectPoint;
-
+  private double baseArmPosition;
+  private double middleArmPosition;
   /** Creates a new setPoitCollectCommand. */
-  public setPointCollectCommand(CollectSubsystem collectSubsyste, double collectPoint, armCollectSubsystem armCollectSubsystem, double armCollectPoint) {
+  public setPointCollectCommand(CollectSubsystem collectSubsyste, double collectPoint, ArmSubsystem armSubsystem, double baseArmPosition, double middleArmPosition) {
     this.collectSubsystem = collectSubsyste;
-    this.armCollectSubsystem = armCollectSubsystem;
+    this.armSubsystem = armSubsystem;
     this.collectPoint = collectPoint;
-    this.armCollectPoint = armCollectPoint;
+    this.baseArmPosition = baseArmPosition;
+    this.middleArmPosition = middleArmPosition;
     // this.armCollect = armCollect;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(collectSubsystem);
@@ -31,7 +33,7 @@ public class setPointCollectCommand extends CommandBase {
   @Override
   public void initialize() {
     collectSubsystem.setPosition(collectPoint);
-    armCollectSubsystem.setArmCollectPosition(armCollectPoint);
+    // armSubsystem.setArmMidAndBase(middleArmPosition, baseArmPosition);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,8 +41,7 @@ public class setPointCollectCommand extends CommandBase {
   public void execute() {
     // SmartDashboard.putNumber("123456789", point);
     collectSubsystem.setPosition(collectPoint);
-    armCollectSubsystem.setArmCollectPosition(armCollectPoint);
-
+    // armSubsystem.setArmMidAndBase(middleArmPosition, baseArmPosition);
   }
 
   // Called once the command ends or is interrupted.

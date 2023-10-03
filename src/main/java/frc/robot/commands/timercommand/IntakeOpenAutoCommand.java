@@ -24,8 +24,8 @@ public class IntakeOpenAutoCommand extends SequentialCommandGroup {
     addCommands(
       new WaitCommand(delayOpenIntake),
       new ParallelDeadlineGroup(
-        new WaitCommand(deadLineIntake),
-        new setPointCollectCommand(collectSubsystem, collectPoint, armCollectSubsystem, armCollectPoint)
+        new WaitCommand(deadLineIntake)
+        // new setPointCollectCommand(collectSubsystem, collectPoint, armCollectSubsystem, armCollectPoint) TODO 2.10
         )
     );
   }

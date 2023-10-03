@@ -47,11 +47,11 @@ public class RobotContainer {
     private final CartridgeSubsystem m_cartridgeSubsystem = new CartridgeSubsystem();
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
     private final GripperSubsys gripperSubsys = new GripperSubsys();
-
+    
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public final CenterFarFromHumanCube CenterFarFromHumanCube = new CenterFarFromHumanCube(s_Swerve,  m_CollectSubsystem, m_cartridgeSubsystem,
-     m_CollectWheels, m_ShootingSubsystem, m_armCollectSubsystem);
-    public final CenterCloseToHumanCube centerCloseToHumanCube = new CenterCloseToHumanCube(s_Swerve,  m_CollectSubsystem, m_cartridgeSubsystem, m_CollectWheels, m_ShootingSubsystem, m_armCollectSubsystem);
+    m_CollectWheels, m_ShootingSubsystem, m_armCollectSubsystem, armSubsystem);
+    public final CenterCloseToHumanCube centerCloseToHumanCube = new CenterCloseToHumanCube(s_Swerve,  m_CollectSubsystem, m_cartridgeSubsystem, m_CollectWheels, m_ShootingSubsystem, m_armCollectSubsystem, armSubsystem);
     public final Center3Cubes center3Cubes = new Center3Cubes(s_Swerve, m_CollectSubsystem, m_cartridgeSubsystem, m_CollectWheels, m_ShootingSubsystem, m_armCollectSubsystem);
     
     public final Next2HumanCommand next2Human = new Next2HumanCommand(s_Swerve, m_CollectSubsystem, m_cartridgeSubsystem,
@@ -61,10 +61,10 @@ public class RobotContainer {
     public final FarFromHumanCube farFromHumanCube = new FarFromHumanCube(s_Swerve, m_CollectSubsystem, m_cartridgeSubsystem,
      m_CollectWheels, m_armCollectSubsystem, limelight, m_ShootingSubsystem);
     
-    public final ShootingGroupCommand justShoot = new ShootingGroupCommand(m_ShootingSubsystem, m_armCollectSubsystem, m_cartridgeSubsystem , Constants.SHOOTING_HIGH);
+    public final ShootingGroupCommand justShoot = new ShootingGroupCommand(m_ShootingSubsystem, m_armCollectSubsystem, m_cartridgeSubsystem , Constants.SHOOTING_HIGH, armSubsystem);
      
     public RobotContainer() {
-
+        
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -79,7 +79,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         robotButtons.loadButtons(m_ShootingSubsystem, m_CollectSubsystem,  s_Swerve, m_CollectWheels, limelight, m_armCollectSubsystem, m_cartridgeSubsystem,armSubsystem,gripperSubsys);
     }
- 
+    
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
@@ -123,6 +123,9 @@ public class RobotContainer {
     }
     public CartridgeSubsystem getM_cartridgeSubsystem() {
         return m_cartridgeSubsystem;
+    }
+    public ArmSubsystem getArmSubsystem() {
+        return armSubsystem;
     }
     public CenterCloseToHumanCube getCenterCloseToHumanCube() {
         return centerCloseToHumanCube;

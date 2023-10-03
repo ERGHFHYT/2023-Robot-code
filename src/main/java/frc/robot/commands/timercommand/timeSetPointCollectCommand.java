@@ -37,7 +37,7 @@ public class timeSetPointCollectCommand extends CommandBase {
     timer.reset();
     timer.start();
     collectSubsystem.setPosition(collectPoint);
-    armCollectSubsystem.setArmCollectPosition(armCollectPoint);
+    // armCollectSubsystem.setArmCollectPosition(armCollectPoint); TODO 2.10
     // collectSubsystem.setPosition(point);
   }
 
@@ -49,7 +49,7 @@ public class timeSetPointCollectCommand extends CommandBase {
       // System.out.println("collect pass - " + timer.get());
       // System.out.println("position: " + collectSubsystem.getPosition());
       collectSubsystem.setPosition(collectPoint);
-      armCollectSubsystem.setArmCollectPosition(armCollectPoint);
+      // armCollectSubsystem.setArmCollectPosition(armCollectPoint); TODO 2.10
     // if (timer.hasElapsed(timeOfFunctioning - 0.7)){
     //   armCollectSubsystem.setArmCollectPosition(0.3);
 

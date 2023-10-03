@@ -15,63 +15,62 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /** An example command that uses an example subsystem. */
-public class NewArmCommand extends CommandBase {
-  private final ArmSubsystem armCollect;
+public class CloseArm extends CommandBase {
+  private final ArmSubsystem armSubsystem;
    private double positionBase;
   private double positionMid;
-  private double seconds;
-  private boolean isFinished;
-  private Timer timer = new Timer();
+
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public NewArmCommand(ArmSubsystem armCollect, double positionMid , double positionBase, double seconds) {
-    this.armCollect = armCollect;
+  public CloseArm(ArmSubsystem armSubsystem, double positionMid , double positionBase) {
+    this.armSubsystem = armSubsystem;
     this.positionBase = positionBase;
     this.positionMid = positionMid;
-    this.seconds = seconds;
+    
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(armCollect);
+    addRequirements(armSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.reset();
-    timer.start();
-    isFinished = false;
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() { 
+  public void execute() {
+    if (armSubsystem.getBasePosition() < 14 && armSubsystem.getMidPosition() < - 33){
+      System.out.println("11111111");
+      armSubsystem.setBaseArmPosition(16);
+    }
+    else if (armSubsystem.getBasePosition() > 13 && armSubsystem.getMidPosition() < - 25){
+      System.out.println("2222222222");
+      armSubsystem.setMiddleArmPosition(-22);
+    }    
+    else if(armSubsystem.getBasePosition() > 13 && armSubsystem.getMidPosition() > - 25){
+      System.out.println("3333333333");
+      armSubsystem.setArmMidAndBase(1.5, -0.4);
+    }
+ 
   }
   
   // Called once the command ends or is interrupted.
   @Override
   
   public void end(boolean interrupted) {
-    armCollect.setArmMidAndBase(positionMid , positionBase);
-    // timer.delay(1);
-    // armCollect.setArmCollectPosition(0);
-    
+    armSubsystem.setArmMidAndBase(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (seconds == 0){
-      isFinished = true;
-    }
-    else if(timer.hasElapsed(seconds)){
-      // System.out.println("rrrrrrrrrrrrrrrr entered! " + position);
-      isFinished = true;
-    }
-    return isFinished;
+    return armSubsystem.isShootingDownBase() && armSubsystem.isShootingDownMid();
   }
 }
 

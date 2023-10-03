@@ -33,8 +33,7 @@ public class GipperCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // gripperSubsys.setOutput(0);
-    gripperSubsys.setPosition(gripperSubsys.getPosition());
+      gripperSubsys.setPosition(gripperSubsys.getPosition()+30);
   }
 
   // Returns true when the command should end.

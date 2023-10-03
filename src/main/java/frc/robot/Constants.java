@@ -82,6 +82,32 @@ public final class Constants {
             return ShootingWheelsOutput;
         }
     }
+
+    public static final class ArmConstants{ 
+        private final double ArmSeconds = 0;
+        private final double baseArmPosition;
+        private final double middleArmPosition;
+        public ArmConstants(double baseArmPosition, double middleArmPosition){
+            this.baseArmPosition = baseArmPosition;
+            this.middleArmPosition  = middleArmPosition;
+        }
+        public double getBaseArmPosition() {
+            return baseArmPosition;
+        }
+        public double getMiddleArmPosition() {
+            return middleArmPosition;
+        }
+        public double getArmSeconds() {
+            return ArmSeconds;
+        }
+    }
+
+
+
+
+
+
+
     public static final class SubsystemsConstants{
         private final armCollectSubsystem armCollectSubsystem;
         private final CartridgeSubsystem cartridgeSubsystem;
