@@ -6,14 +6,14 @@ package frc.robot.commands.ShootingCommnads;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CartridgeSubsystem;
-import frc.robot.subsystems.shootingSubsystem;
+import frc.robot.subsystems.ShootingSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShootingDownGroupCommand extends SequentialCommandGroup {
   /** Creates a new ShootingGroupCommand. */
-  public ShootingDownGroupCommand(CartridgeSubsystem cartridgeSubsystem, shootingSubsystem shootingSubsystem,
+  public ShootingDownGroupCommand(CartridgeSubsystem cartridgeSubsystem, ShootingSubsystem shootingSubsystem,
     double ShootingVelocity, double CartridgeOutput, double ShootingBackOutput, double max) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());

@@ -2,17 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.NewArm;
+package frc.robot.commands.ARM1;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
 
-public class NewArmBaseOutput extends CommandBase {
+public class ARMoutput extends CommandBase {
   private final ArmSubsystem armSubsystem;
   private double BaseOutput;
 
   /** Creates a new NewArmOutput. */
-  public NewArmBaseOutput(ArmSubsystem armSubsystem,double BaseOutput ) {
+  public ARMoutput(ArmSubsystem armSubsystem,double BaseOutput ) {
     this.armSubsystem = armSubsystem;
     this.BaseOutput = BaseOutput;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -30,11 +30,18 @@ public class NewArmBaseOutput extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    armSubsystem.setArmBaseOutput(0);
+
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+     if(armSubsystem.isShootingDownBase()){
+    return true;
+     }else{
     return false;
+     }
   }
 }

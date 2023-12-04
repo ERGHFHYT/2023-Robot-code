@@ -47,33 +47,33 @@ public class ArmSubsystem extends SuperSystem {
   // Motors, Selenoid and Sensors declaration
   public ArmSubsystem() {
     super("arm");
-    armBaseGains = new Gains("armBaseGains", 0, 0, 0.05, 0.000, 0.00035, 0.001, 0);
-    armMidGains = new Gains("armMidGains", 0, 0, 0.04, 0, 0.0002, 0.001, 0 );
+    armBaseGains = new Gains("armBaseGains", 0.15, 0, 0);
+    // armMidGains = new Gains("armMidGains", 0, 0, 0.04, 0, 0.00035, 0.001, 0 );
     downMicroSwitchBase = new DigitalInput(Constants.ARM_DOWN_MICROSWITCH);
-    downMicroSwitchMid = new DigitalInput(1);
-      middleArmMotor = new SuperSparkMax(18, MotorType.kBrushless, 30, true, 1, 1, IdleMode.kBrake,
-      ControlType.kSmartMotion, armMidGains, 1, 1, 0);
+    // downMicroSwitchMid = new DigitalInput(1);
+      // middleArmMotor = new SuperSparkMax(18, MotorType.kBrushless, 30, true, 1, 1, IdleMode.kBrake,
+      // ControlType.kSmartMotion, armMidGains, 1, 1, 0); 
       baseArmMotor = new SuperSparkMax(20, MotorType.kBrushless, 40, false, 1, 1, IdleMode.kBrake,
-      ControlType.kSmartMotion, armBaseGains, 1, 1, 0);
+      ControlType.kSmartMotion, armBaseGains, 0, 0, 0);
       this.resetBaseArmEncoder();
-      this.resetMiddleArmEncoder();
+      // this.resetMiddleArmEncoder();
         getTab().addCommandToDashboard("Reset base", new InstantCommand(() -> this.resetBaseArmEncoder()));
-        getTab().addCommandToDashboard("Reset middle", new InstantCommand(() -> this.resetMiddleArmEncoder()));
+        // getTab().addCommandToDashboard("Reset middle", new InstantCommand(() -> this.resetMiddleArmEncoder()));
   }
 
   /** Creates a new ExampleSubsystem. */
 
   @Override
   public void periodic() {
-    if (this.isShootingDownMid()){
-      this.resetMiddleArmEncoder();
-    }
+    // if (this.isShootingDownMid()){
+    //   this.resetMiddleArmEncoder();
+    // }
     if (this.isShootingDownBase()){
       this.resetBaseArmEncoder();
     }
-    getTab().putInDashboard("collect middle position", middleArmMotor.getPosition(), 4, 0, false);
+    // getTab().putInDashboard("collect middle position", middleArmMotor.getPosition(), 4, 0, false);
     getTab().putInDashboard("collect base position", baseArmMotor.getPosition(), 5, 0, false);
-    getTab().putInDashboard("collect micriMid", downMicroSwitchMid.get(), 6, 0, false);
+    // getTab().putInDashboard("collect micriMid", downMicroSwitchMid.get(), 6, 0, false);
     getTab().putInDashboard("collect micriBase", downMicroSwitchBase.get(), 7, 0, false);
     // This method will be called once per scheduler run
     // SmartDashboard.putNumber("Gripper Position", gripperMotor.getPosition());
@@ -84,15 +84,15 @@ public class ArmSubsystem extends SuperSystem {
   public void resetBaseArmEncoder(){
     baseArmMotor.reset(0);
   }
-  public void resetMiddleArmEncoder(){
-    middleArmMotor.reset(0);
-  }
+  // public void resetMiddleArmEncoder(){
+  //   middleArmMotor.reset(0);
+  // }
 
-  public  void setMiddleArmPosition(double position) {
-    middleArmMotor.setMode(ControlMode.Position);
-    middleArmMotor.getPIDController().setReference(position, ControlType.kPosition);
-    // SmartDashboard.putNumber("gripper target", position);
-  }
+  // public  void setMiddleArmPosition(double position) {
+  //   middleArmMotor.setMode(ControlMode.Position);
+  //   middleArmMotor.getPIDController().setReference(position, ControlType.kPosition);
+  //   // SmartDashboard.putNumber("gripper target", position);
+  // }
 
   public  void setBaseArmPosition(double position) {
     baseArmMotor.setMode(ControlMode.Position);
@@ -100,43 +100,44 @@ public class ArmSubsystem extends SuperSystem {
 
   }
 
-  public void setArmMidAndBase(double positionMid , double positionBase){
-   this.setBaseArmPosition(positionBase);
-   this.setMiddleArmPosition(positionMid);
-  }
+  // public void setArmMidAndBase(double positionMid , double positionBase){
+  //  this.setBaseArmPosition(positionBase);
+  //  this.setMiddleArmPosition(positionMid);
+  // }
 
-  public void setArmOutput(double output) {
-    middleArmMotor.setMode(ControlMode.PercentOutput);
-    middleArmMotor.set(output);
-  //   if (((output <= 0 && !isShootingDown()))){
-  //     armCollectMotor.set(output);
-  //   }
-  }
+  // public void setArmOutput(double output) {
+  //   middleArmMotor.setMode(ControlMode.PercentOutput);
+  //   middleArmMotor.set(output);
+  // //   if (((output <= 0 && !isShootingDown()))){
+  // //     armCollectMotor.set(output);
+  // //   }
+  // }
 
-  public void setArmMidOutput(double MidOutput) {
-    middleArmMotor.setMode(ControlMode.PercentOutput);
-    middleArmMotor.set(MidOutput);
-  //   if (((output <= 0 && !isShootingDown()))){
-  //     armCollectMotor.set(output);
-  //   }
-  }
+  // public void setArmMidOutput(double MidOutput) {
+  //   middleArmMotor.setMode(ControlMode.PercentOutput);
+  //   middleArmMotor.set(MidOutput);
+  // //   if (((output <= 0 && !isShootingDown()))){
+  // //     armCollectMotor.set(output);
+  // //   }
+  // }
 
   public void setArmBaseOutput(double BaseOutput) {
-    middleArmMotor.setMode(ControlMode.PercentOutput);
-    middleArmMotor.set(BaseOutput);
+    baseArmMotor.setMode(ControlMode.PercentOutput);
+    baseArmMotor.set(BaseOutput);
   }
 
-  public void setOutputBoth(double BaseOutput, double MidOutput){
-    this.setArmMidOutput(MidOutput);
-    this.setArmBaseOutput(BaseOutput);
-  }
+  
+  // public void setOutputBoth(double BaseOutput, double MidOutput){
+  //   this.setArmMidOutput(MidOutput);
+  //   this.setArmBaseOutput(BaseOutput);
+  // }
 
 
-  public boolean isShootingDownMid(){
+  // public boolean isShootingDownMid(){
     
-    return downMicroSwitchMid.get();
+  //   return downMicroSwitchMid.get();
     
-  }
+  // }
 
   public double getBasePosition(){
     
@@ -144,11 +145,11 @@ public class ArmSubsystem extends SuperSystem {
     
   }
 
-  public double getMidPosition(){
+  // public double getMidPosition(){
     
-    return middleArmMotor.getPosition();
+  //   return middleArmMotor.getPosition();
     
-  }
+  // }
 
   public boolean isShootingDownBase(){
     return downMicroSwitchBase.get();

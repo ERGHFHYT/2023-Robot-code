@@ -27,6 +27,6 @@ public class DisableArm extends CommandBase {
     System.out.println("4444444444444");
     System.out.println("4444444444444");
     System.out.println("4444444444444");
-    armSubsystem.setOutputBoth(0, 0);
+    armSubsystem.setArmBaseOutput(0);
   }
 }

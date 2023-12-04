@@ -1,3 +1,4 @@
+
 package frc.robot;
 
 import java.util.function.BooleanSupplier;
@@ -15,7 +16,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.resetCommand;
-
+import frc.robot.commands.ARM1.ARMoutput;
+import frc.robot.commands.ARM1.ARMposition;
 import frc.robot.commands.ShootingCommnads.ShootingCommand;
 import frc.robot.commands.ShootingCommnads.ShootingDownGroupCommand;
 import frc.robot.commands.ShootingCommnads.ShootingFixercommand;
@@ -30,11 +32,7 @@ import frc.robot.commands.SwereCommands.rightGRIDmovmentCommand;
 import frc.robot.commands.IntakeCommands.OpenIntakeAndArm;
 import frc.robot.commands.IntakeCommands.collectWheelsCommand;
 import frc.robot.commands.IntakeCommands.CollectPosition;
-import frc.robot.commands.NewArm.ArmHuman;
-import frc.robot.commands.NewArm.ArmHumanComandgroup;
-import frc.robot.commands.NewArm.CloseArm;
-import frc.robot.commands.NewArm.GipperCommand;
-import frc.robot.commands.NewArm.NewArmCommand;
+
 import frc.robot.commands.ShootingCommnads.CartridgeOutputCommand;
 import frc.robot.commands.ShootingCommnads.CubeFixtureGroupCommand;
 import frc.robot.commands.resetCommand;
@@ -45,7 +43,7 @@ import frc.robot.subsystems.CartridgeSubsystem;
 import frc.robot.subsystems.Swerve;
 // import frc.robot.subsystems.armCollectSubsystem;
 import frc.robot.subsystems.collectWheelsSubsystem;
-import frc.robot.subsystems.shootingSubsystem;
+import frc.robot.subsystems.ShootingSubsystem;
 import frc.util.vision.Limelight;
 // import frc.robot.commands.Balance;
 
@@ -101,7 +99,7 @@ public class RobotButtons {
      * @param armSubsystem
      * @param swerve
      */
-    public void loadButtons(shootingSubsystem shootingSubsystem, CollectSubsystem collectSubsystem,
+    public void loadButtons(ShootingSubsystem shootingSubsystem, CollectSubsystem collectSubsystem,
              Swerve swerve,collectWheelsSubsystem collectWheels, Limelight limelight, CartridgeSubsystem cartridgeSubsystem, ArmSubsystem armSubsystem, GripperSubsys gripperSubsys) {
         // driver joystick commands
         swerve.setDefaultCommand(
@@ -126,9 +124,9 @@ public class RobotButtons {
 
         // systems joystick commands
 
-        OpenCollect.whileTrue(new OpenIntakeAndArm(collectSubsystem, collectWheels, armSubsystem, Constants.COLLECT_WHEELS_OUTPUT, Constants.CENTERING_WHEELS_OUTPUT, Constants.COLLECT_OPEN_POSITION, 30, 15));
+        OpenCollect.whileTrue(new OpenIntakeAndArm(collectSubsystem, collectWheels, armSubsystem, Constants.COLLECT_WHEELS_OUTPUT, Constants.CENTERING_WHEELS_OUTPUT, Constants.COLLECT_OPEN_POSITION));
         // whileTrue(new OpenIntakeAndArm(collectSubsystem, collectWheels, armCollectSubsystem, Constants.COLLECT_WHEELS_OUTPUT, Constants.CENTERING_WHEELS_OUTPUT, Constants.COLLECT_OPEN_POSITION, Constants.ARM_OPEN_POSITION));
-        collectWheelsBack.whileTrue(new OpenIntakeAndArm(collectSubsystem, collectWheels, armSubsystem, 0.7, 0.15, Constants.COLLECT_OPEN_POSITION, 30, 15));
+        collectWheelsBack.whileTrue(new OpenIntakeAndArm(collectSubsystem, collectWheels, armSubsystem, 0.7, 0.15, Constants.COLLECT_OPEN_POSITION));
         // .whileTrue(new collectWheelsCommand(collectWheels, 0.7, 0.5));
         
         
@@ -139,16 +137,21 @@ public class RobotButtons {
         // shootingFixture.onTrue(new CubeFixtureGroupCommand(cartridgeSubsystem, 0, 0.15, 1400, -0.2, 20));
         reverseShooterTrigger.whileTrue(new ShootingCommand(shootingSubsystem, cartridgeSubsystem,-0.3, 0));
         forwardShooterTrigger.whileTrue(new ShootingCommand(shootingSubsystem, cartridgeSubsystem,0.5, 0));
-        
-        collectCone.onTrue(new ArmHumanComandgroup(armSubsystem, 34, 12.5)); //B
-        // collectCone.onTrue(new ArmHuman(armSubsystem, -34, 12.5)); //B
-        scoreCone.onTrue(new NewArmCommand(armSubsystem, 18 , 16)); //Y
-        // testArmTrigger.onTrue(new NewArmCommand(armSubsystem, -30, 15, 0));
-        restArm.onTrue(new CloseArm(armSubsystem, 0, 0));//A
-        gripperTriggerIn.whileTrue(new GipperCommand(gripperSubsys, 0.5));
-        gripperTriggerOut.whileTrue(new GipperCommand(gripperSubsys, -0.5));
-        // openArmCollect.onTrue(new InstantCommand(() -> armCollectSubsystem.setArmCollectPosition(Constants.ARM_OPEN_POSITION)));
-        // closeArmCollect.onTrue(new InstantCommand(() -> armCollectSubsystem.setArmCollectPosition(0)));
+
+
+        scoreCone.onTrue(new ARMposition(armSubsystem, 12.5));
+        restArm.onTrue(new ARMposition(armSubsystem, 0));
+        collectCone.onTrue(new ARMoutput(armSubsystem,-0.2));
+        // // collectCone.onTrue(new ArmHumanComandgroup(armSubsystem, gripperSubsys,32, 16.5)); //B
+        // // collectCone.onTrue(new ArmHuman(armSubsystem, -34, 12.5)); //B
+        // // j.whileTrue(new outputMiddle(armSubsystem));
+        // // scoreCone.onTrue(new NewArmCommand(armSubsystem, 18.5 , 17)); //Y
+        // // testArmTrigger.onTrue(new NewArmCommand(armSubsystem, -30, 15, 0));
+        // // restArm.onTrue(new CloseArm(armSubsystem, 0, 2.4));//A
+        // gripperTriggerIn.whileTrue(new GipperCommand(gripperSubsys, 0.75));
+        // gripperTriggerOut.whileTrue(new GipperCommand(gripperSubsys, -0.5));
+        // // openArmCollect.onTrue(new InstantCommand(() -> armCollectSubsystem.setArmCollectPosition(Constants.ARM_OPEN_POSITION)));
+        // // closeArmCollect.onTrue(new InstantCommand(() -> armCollectSubsystem.setArmCollectPosition(0)));
         
         
         // resetTrigger.and(SeconderyResetTrigger).onTrue(new resetCommand(shootingSubsystem, collectSubsystem, armCollectSubsystem, cartridgeSubsystem));

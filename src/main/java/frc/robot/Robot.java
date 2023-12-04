@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+// import frc.robot.autos.cubefarfromhuman;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CartridgeSubsystem;
 import frc.robot.subsystems.Swerve;
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
   public static RobotContainer m_robotContainer;
   private static final String centerFarFromHumanCubeAuto = "Center far from human cube";
   private static final String centerCloseToHumanCubeAuto = "Center close to human cube";
+  private static final String cubeFarFromHoman = "cube far from human";
   private static final String test = "test";
   private static final String ballanceRampaAtuo = "ballance Rampa";
   private static final String justShootAtuo = "do nothing";
@@ -53,14 +55,10 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     //m_chooser.setDefaultOption("", centerToRampaAuto);
-    m_chooser.setDefaultOption("just shoot", justShootAtuo);
-    m_chooser.addOption("Center far from human cube", centerFarFromHumanCubeAuto);
+    m_chooser.setDefaultOption("Center far from human cube", centerFarFromHumanCubeAuto);
+    m_chooser.addOption("just shoot", justShootAtuo);
+    m_chooser.addOption("cube far from human", cubeFarFromHoman);
     m_chooser.addOption("Center close to human cube", centerCloseToHumanCubeAuto);
-    m_chooser.addOption("Next to Human", Next2Human);
-    m_chooser.addOption("Far from human", FarFromHumanCube);
-    m_chooser.addOption("test", test);
-    m_chooser.addOption("Next to Human 3 Cubes", Next2Human3Cubes);
-    m_chooser.addOption("Center 3 Cubes", Center3Cubes);
     SmartDashboard.putData("Auto choices", m_chooser);
     CameraServer.startAutomaticCapture();
     m_robotContainer = new RobotContainer();
@@ -88,8 +86,8 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     // armSubsystem.baseArmMotor.setIdleMode(IdleMode.kCoast);
-    armSubsystem.middleArmMotor.setIdleMode(IdleMode.kCoast);
-    armSubsystem.SetDisable();
+    // armSubsystem.middleArmMotor.setIdleMode(IdleMode.kCoast);
+    // armSubsystem.SetDisable();
   }
 
   @Override
@@ -100,10 +98,10 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     if (m_chooser.getSelected().equals(centerFarFromHumanCubeAuto)) m_autonomousCommand = m_robotContainer.getCenterFarFromHumanCube();
-    else if (m_chooser.getSelected().equals(centerCloseToHumanCubeAuto)) m_autonomousCommand = m_robotContainer.getCenterCloseToHumanCube();
-    else if (m_chooser.getSelected().equals(test)) m_autonomousCommand = m_robotContainer.getTest();
+    // else if (m_chooser.getSelected().equals(centerCloseToHumanCubeAuto)) m_autonomousCommand = m_robotContainer.getCenterCloseToHumanCube();
     else if (m_chooser.getSelected().equals(justShootAtuo)) m_autonomousCommand = m_robotContainer.getJustShootAtuo();
-    else m_autonomousCommand = m_robotContainer.getCenterFarFromHumanCube();
+    // else if (m_chooser.getSelected().equals(cubeFarFromHoman)) m_autonomousCommand = cubefarfromhuman.getAutoCommand(m_robotContainer.getS_Swerve(),m_robotContainer.getM_ShootingSubsystem(), m_robotContainer.getM_CartridgeSubsystem(), Constants.SHOOTING_AUTO_HIGH, m_robotContainer.getArmSubsystem());
+    // else m_autonomousCommand = cubefarfromhuman.getAutoCommand(m_robotContainer.getS_Swerve(),m_robotContainer.getM_ShootingSubsystem(), m_robotContainer.getM_CartridgeSubsystem(), Constants.SHOOTING_AUTO_HIGH, m_robotContainer.getArmSubsystem());;
     // switch(m_chooser.getSelected()){
     //   case centerAuto:
     //     m_autonomousCommand = m_robotContainer.getCenterAtuo();
@@ -144,9 +142,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_robotContainer.getS_Swerve().zeroGyro();
-    armSubsystem.SetTeleop();
     armSubsystem.baseArmMotor.setIdleMode(IdleMode.kBrake);
-    armSubsystem.middleArmMotor.setIdleMode(IdleMode.kBrake);
+    // armSubsystem.middleArmMotor.setIdleMode(IdleMode.kBrake);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

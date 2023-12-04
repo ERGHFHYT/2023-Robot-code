@@ -2,13 +2,13 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 6.1,
-        "y": 2.16
+        "x": 1.7641719643628866,
+        "y": 4.397543297456264
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.1,
-        "y": 2.16
+        "x": 1.7866342368111818,
+        "y": 4.397543297456264
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -16,24 +16,26 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
+        "names": [
+          "first shooting"
+        ],
+        "executionBehavior": "sequential",
         "waitBehavior": "none",
         "waitTime": 0
       }
     },
     {
       "anchorPoint": {
-        "x": 8.07,
-        "y": 2.15
+        "x": 7.605401182366346,
+        "y": 4.691979241778389
       },
       "prevControl": {
-        "x": 8.075080599812235,
-        "y": 1.744685977217669
+        "x": 6.845971161207904,
+        "y": 4.657320115338659
       },
       "nextControl": {
-        "x": 8.06130199938125,
-        "y": 2.843898703152856
+        "x": 8.364831203524787,
+        "y": 4.7266383682181194
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -42,33 +44,49 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [],
-        "executionBehavior": "parallel",
+        "executionBehavior": "sequential",
         "waitBehavior": "none",
         "waitTime": 0
       }
     },
     {
       "anchorPoint": {
-        "x": 4.05,
-        "y": 2.16
+        "x": 1.7641719643628866,
+        "y": 4.4
       },
       "prevControl": {
-        "x": 5.901064105338087,
-        "y": 2.4495505131750996
+        "x": 1.7507398577270656,
+        "y": 4.4
       },
       "nextControl": null,
-      "holonomicAngle": 180.0,
+      "holonomicAngle": 0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
+        "names": [
+          "end shooting"
+        ],
+        "executionBehavior": "sequential",
         "waitBehavior": "none",
         "waitTime": 0
       }
     }
   ],
-  "markers": []
+  "markers": [
+    {
+      "position": 0.7272727272726924,
+      "names": [
+        "event",
+        "open intake"
+      ]
+    },
+    {
+      "position": 1.1393939393939387,
+      "names": [
+        "close intake"
+      ]
+    }
+  ]
 }

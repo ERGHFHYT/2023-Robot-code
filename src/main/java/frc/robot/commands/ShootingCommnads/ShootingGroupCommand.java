@@ -10,21 +10,21 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.ShootingConstants;
-import frc.robot.commands.NewArm.NewArmCommand;
+import frc.robot.commands.ARM1.ARMposition;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CartridgeSubsystem;
-import frc.robot.subsystems.shootingSubsystem;
+import frc.robot.subsystems.ShootingSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShootingGroupCommand extends ParallelDeadlineGroup {
 
-  public ShootingGroupCommand(shootingSubsystem shootingSubsystem,
+  public ShootingGroupCommand(ShootingSubsystem shootingSubsystem,
       CartridgeSubsystem cartridgeSubsystem, ShootingConstants shootingConstants, ArmSubsystem armSubsystem) {
     super(
         new WaitCommand(1.5),
-        new NewArmCommand(armSubsystem, 30, 15),
+        new ARMposition(armSubsystem, 12.5),
         new SequentialCommandGroup(
             new WaitCommand(0.3),
             new ShootingCommand(shootingSubsystem, cartridgeSubsystem,  shootingConstants.getShootingWheelsOutput(), shootingConstants.getCartridgeOutput())

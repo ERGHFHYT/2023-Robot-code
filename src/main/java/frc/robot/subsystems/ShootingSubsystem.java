@@ -13,12 +13,12 @@ import frc.robot.dashboard.SuperSystem;
 import frc.util.PID.Gains;
 import frc.util.motor.SuperTalonSRX;
 
-public class shootingSubsystem extends SuperSystem {
+public class ShootingSubsystem extends SuperSystem {
   private SuperTalonSRX leftShootingWheels;
   private SuperTalonSRX rightShootingWheels;
   private Gains shootingGains = new Gains("shooting gains", 0.25, 0, 0);
   /** Creates a new shootingSubsystem. */
-  public shootingSubsystem() {
+  public ShootingSubsystem() {
     super("shooting Subsystem");
     rightShootingWheels = new SuperTalonSRX(Constants.RIGHT_SHOOTING_M0TOR, 40, false, false, 0, 1, 1, shootingGains, ControlMode.Velocity);
     leftShootingWheels = new SuperTalonSRX(Constants.LEFT_SHOOTIN_MOTOR, 40, false, false, 0, 1, 1, shootingGains, ControlMode.Velocity);

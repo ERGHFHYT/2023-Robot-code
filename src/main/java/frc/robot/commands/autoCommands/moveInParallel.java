@@ -13,7 +13,7 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.Constants;
 import frc.robot.autos.AutoCommand;
 import frc.robot.commands.IntakeCommands.collectWheelsCommand;
-import frc.robot.commands.NewArm.CloseArm;
+import frc.robot.commands.ARM1.ARMposition;
 import frc.robot.commands.IntakeCommands.CollectPosition;
 import frc.robot.commands.ShootingCommnads.CartridgeOutputCommand;
 import frc.robot.commands.ShootingCommnads.CubeFixtureGroupCommand;
@@ -41,8 +41,10 @@ public class moveInParallel extends SequentialCommandGroup {
       new CartridgeOutputCommand(cartridgeSubsystem, 0.2, 10),
       new timeSetPointCollectCommand(collectSubsystem,armSubsystem , collectPoint, collectSeconds, collectDelay),
       new TimerCollectWheels(collectWheels, Constants.COLLECT_WHEELS_OUTPUT, Constants.CENTERING_WHEELS_OUTPUT, collectSeconds + 2, collectDelay),
-      new AutoCubeFixture(cartridgeSubsystem, collectSeconds + 0.3),
-      new CloseArm(armSubsystem, -0.4, -0.4)
+      new SequentialCommandGroup( 
+        new AutoCubeFixture(cartridgeSubsystem, collectSeconds + 0.3),
+        new ARMposition(armSubsystem, 0)
+        )
       ),
       new TurnToZeroCommand(s_Swerve)
     );

@@ -5,7 +5,7 @@
 package frc.robot.commands.ShootingCommnads;
 
 import frc.robot.subsystems.CartridgeSubsystem;
-import frc.robot.subsystems.shootingSubsystem;
+import frc.robot.subsystems.ShootingSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */

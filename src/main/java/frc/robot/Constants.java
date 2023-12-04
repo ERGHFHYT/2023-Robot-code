@@ -13,7 +13,7 @@ import frc.robot.subsystems.CartridgeSubsystem;
 import frc.robot.subsystems.CollectSubsystem;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.collectWheelsSubsystem;
-import frc.robot.subsystems.shootingSubsystem;
+import frc.robot.subsystems.ShootingSubsystem;
 import frc.util.vision.Limelight;
 
 public final class Constants {
@@ -37,8 +37,9 @@ public final class Constants {
         public static final double COLLECT_OPEN_POSITION = 250;
         
         // shooting constsnts
-        public static final ShootingConstants SHOOTING_HIGH = new ShootingConstants(0.3, 0.75);
-        public static final ShootingConstants SHOOTING_AUTO_HIGH = new ShootingConstants(0.3, 0.82);
+        public static final ShootingConstants SHOOTING_HIGH = new ShootingConstants(0.3, 0.72);
+        public static final ShootingConstants SHOOTING_AUTO_HIGH = new ShootingConstants(0.3, 0.75);
+        public static final ShootingConstants SHOOTING_AUTO_HIGH2 = new ShootingConstants(0.3, 0.95);
         public static final ShootingConstants SHOOTING_MID = new ShootingConstants(0.4, 0.51);
         public static final ShootingConstants SHOOTING_LOW = new ShootingConstants(0.4, 0.29);
 
@@ -111,14 +112,14 @@ public final class Constants {
         private final CartridgeSubsystem cartridgeSubsystem;
         private final CollectSubsystem collectSubsystem;
         private final collectWheelsSubsystem collectWheelsSubsystem;
-        private final shootingSubsystem shootingSubsystem;
+        private final ShootingSubsystem shootingSubsystem;
         private final Swerve swerve;
         private final Limelight limelight;
 
         public SubsystemsConstants(
                 CartridgeSubsystem cartridgeSubsystem, CollectSubsystem collectSubsystem,
                 collectWheelsSubsystem collectWheelsSubsystem,
-                shootingSubsystem shootingSubsystem, Swerve swerve, Limelight limelight) 
+                ShootingSubsystem shootingSubsystem, Swerve swerve, Limelight limelight) 
             {
             this.cartridgeSubsystem = cartridgeSubsystem;
             this.collectSubsystem = collectSubsystem;
@@ -142,7 +143,7 @@ public final class Constants {
             return collectWheelsSubsystem;
         }
 
-        public shootingSubsystem getShootingSubsystem() {
+        public ShootingSubsystem getShootingSubsystem() {
             return shootingSubsystem;
         }
 

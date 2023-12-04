@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.CartridgeSubsystem;
-import frc.robot.subsystems.shootingSubsystem;
+import frc.robot.subsystems.ShootingSubsystem;
 
 public class ShootingCommand extends CommandBase {
-  private final shootingSubsystem shootingSubsystem;
+  private final ShootingSubsystem shootingSubsystem;
   private final CartridgeSubsystem cartridgeSubsystem;
   private double ShootingOutput;
   private boolean isShootingUp = false;
@@ -20,7 +20,7 @@ public class ShootingCommand extends CommandBase {
   private double CartridgeOutput;
   private Timer timer = new Timer();
   /** Creates a new ShootingCommand. */
-  public ShootingCommand(shootingSubsystem shootingSubsystem, CartridgeSubsystem cartridgeSubsystem, double ShootingOutput, double CartridgeOutput) {
+  public ShootingCommand(ShootingSubsystem shootingSubsystem, CartridgeSubsystem cartridgeSubsystem, double ShootingOutput, double CartridgeOutput) {
   this.shootingSubsystem = shootingSubsystem;
   this.cartridgeSubsystem = cartridgeSubsystem;
   this.ShootingOutput = ShootingOutput;
@@ -64,6 +64,7 @@ public class ShootingCommand extends CommandBase {
     cartridgeSubsystem.setOutput(0);
     // timer.delay(1.3);
     shootingSubsystem.setShootingOutput(0);
+    System.out.println("55555555");
   }
 
   // Returns true when the command should end.

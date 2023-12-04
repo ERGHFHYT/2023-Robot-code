@@ -9,12 +9,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
-import frc.robot.autos.*;
+import frc.robot.Constants.ShootingConstants;
+import frc.robot.autos.AutoCommand;
+// import frc.robot.autos.cubefarfromhuman;
 import frc.robot.commands.*;
 import frc.robot.commands.ShootingCommnads.CartridgeOutputCommand;
 import frc.robot.commands.ShootingCommnads.ShootingGroupCommand;
-import frc.robot.commands.autoCommands.CenterCloseToHumanCube;
+// import frc.robot.commands.autoCommands.CenterCloseToHumanCube;
 import frc.robot.commands.autoCommands.CenterFarFromHumanCube;
 import frc.robot.commands.timercommand.collectAtuoCommand;
 import frc.robot.subsystems.*;
@@ -37,18 +38,19 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final collectWheelsSubsystem m_CollectWheels = new collectWheelsSubsystem();
-    private final shootingSubsystem  m_ShootingSubsystem = new shootingSubsystem();
+    private final ShootingSubsystem  m_ShootingSubsystem = new ShootingSubsystem();
     private final CollectSubsystem m_CollectSubsystem = new CollectSubsystem();
     private final CartridgeSubsystem m_cartridgeSubsystem = new CartridgeSubsystem();
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
     private final GripperSubsys gripperSubsys = new GripperSubsys();
+
     
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public final CenterFarFromHumanCube CenterFarFromHumanCube = new CenterFarFromHumanCube(s_Swerve,  m_CollectSubsystem, m_cartridgeSubsystem,
     m_CollectWheels, m_ShootingSubsystem, armSubsystem);
-    public final CenterCloseToHumanCube centerCloseToHumanCube = new CenterCloseToHumanCube(s_Swerve,  m_CollectSubsystem, m_cartridgeSubsystem, m_CollectWheels, m_ShootingSubsystem, armSubsystem); 
+    // public final CenterCloseToHumanCube centerCloseToHumanCube = new CenterCloseToHumanCube(s_Swerve,  m_CollectSubsystem, m_cartridgeSubsystem, m_CollectWheels, m_ShootingSubsystem, armSubsystem); 
     public final ShootingGroupCommand justShoot = new ShootingGroupCommand(m_ShootingSubsystem, m_cartridgeSubsystem , Constants.SHOOTING_HIGH, armSubsystem);
-     
+
     public RobotContainer() {
         // Configure the button bindings
         configureButtonBindings();
@@ -80,7 +82,7 @@ public class RobotContainer {
         return s_Swerve;
     }
 
-    public shootingSubsystem getM_ShootingSubsystem() {
+    public ShootingSubsystem getM_ShootingSubsystem() {
         return m_ShootingSubsystem;
     }
 
@@ -109,9 +111,9 @@ public class RobotContainer {
     public ArmSubsystem getArmSubsystem() {
         return armSubsystem;
     }
-    public CenterCloseToHumanCube getCenterCloseToHumanCube() {
-        return centerCloseToHumanCube;
-    }
+    // public CenterCloseToHumanCube getCenterCloseToHumanCube() {
+    //     return centerCloseToHumanCube;
+    // }
     public ShootingGroupCommand getJustShoot() {
         return justShoot;
     }
@@ -123,6 +125,11 @@ public class RobotContainer {
     }
     public Command getTest(){
        return AutoCommand.getAutoCommand(s_Swerve, "test", 3);
+    }
+
+
+    public GripperSubsys getGripperSubsys() {
+        return gripperSubsys;
     }
 }
  

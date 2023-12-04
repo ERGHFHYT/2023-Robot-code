@@ -39,7 +39,7 @@ public class GipperCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (gripperSubsys.getBusVoltage() < 7.8){
+    if (gripperSubsys.getBusVoltage() < 7){
       return true;
     }
     return false;

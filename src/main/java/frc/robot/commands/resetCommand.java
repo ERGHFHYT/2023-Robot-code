@@ -7,19 +7,19 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.CollectSubsystem;
 import frc.robot.subsystems.CartridgeSubsystem;
-import frc.robot.subsystems.shootingSubsystem;
+import frc.robot.subsystems.ShootingSubsystem;
 
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class resetCommand extends InstantCommand {
-  private final shootingSubsystem shootingSubsystem;
+  private final ShootingSubsystem shootingSubsystem;
   private final CollectSubsystem collectSubsystem;
   private final CartridgeSubsystem cartridgeSubsystem;
 
 
-  public resetCommand(shootingSubsystem shootingSubsystem, CollectSubsystem collectSubsystem,   CartridgeSubsystem cartridgeSubsystem) {
+  public resetCommand(ShootingSubsystem shootingSubsystem, CollectSubsystem collectSubsystem,   CartridgeSubsystem cartridgeSubsystem) {
     this.shootingSubsystem = shootingSubsystem;
     this.collectSubsystem = collectSubsystem;
     this.cartridgeSubsystem = cartridgeSubsystem;

@@ -2,15 +2,15 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 6.1,
-        "y": 2.16
+        "x": 1.8411790207039072,
+        "y": 0.5223625484844967
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.1,
-        "y": 2.16
+        "x": 2.6448137106800536,
+        "y": 0.5826351502327073
       },
-      "holonomicAngle": 180.0,
+      "holonomicAngle": 0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
@@ -24,22 +24,22 @@
     },
     {
       "anchorPoint": {
-        "x": 8.07,
-        "y": 2.15
+        "x": 7.0748499391735615,
+        "y": 0.924179893472571
       },
       "prevControl": {
-        "x": 8.075080599812235,
-        "y": 1.744685977217669
+        "x": 6.138374794132811,
+        "y": 0.9356003220706308
       },
       "nextControl": {
-        "x": 8.06130199938125,
-        "y": 2.843898703152856
+        "x": 7.898575496399113,
+        "y": 0.9141344598478676
       },
-      "holonomicAngle": 180.0,
+      "holonomicAngle": 90.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
         "names": [],
         "executionBehavior": "parallel",
@@ -49,15 +49,15 @@
     },
     {
       "anchorPoint": {
-        "x": 4.05,
-        "y": 2.16
+        "x": 1.84,
+        "y": 0.924179893472571
       },
       "prevControl": {
-        "x": 5.901064105338087,
-        "y": 2.4495505131750996
+        "x": 2.3249318495629447,
+        "y": 0.9292026102849212
       },
       "nextControl": null,
-      "holonomicAngle": 180.0,
+      "holonomicAngle": 90.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
@@ -70,5 +70,30 @@
       }
     }
   ],
-  "markers": []
+  "markers": [
+    {
+      "position": 0.0,
+      "names": [
+        "poting cone"
+      ]
+    },
+    {
+      "position": 0.8969696969697827,
+      "names": [
+        "open collect"
+      ]
+    },
+    {
+      "position": 1.2606060606061218,
+      "names": [
+        "close collect"
+      ]
+    },
+    {
+      "position": 2.0,
+      "names": [
+        "shoting cube"
+      ]
+    }
+  ]
 }

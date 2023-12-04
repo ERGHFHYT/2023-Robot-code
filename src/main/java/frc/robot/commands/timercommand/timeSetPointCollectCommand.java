@@ -35,7 +35,7 @@ public class timeSetPointCollectCommand extends CommandBase {
     timer.reset();
     timer.start();
     collectSubsystem.setPosition(collectPoint);
-    armSubsystem.setArmMidAndBase(30, 15);
+    armSubsystem.setBaseArmPosition(12.5);
     // collectSubsystem.setPosition(point);
   }
 
