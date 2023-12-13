@@ -142,7 +142,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_robotContainer.getS_Swerve().zeroGyro();
-    armSubsystem.baseArmMotor.setIdleMode(IdleMode.kBrake);
+    // armSubsystem.baseArmMotor.setIdleMode(IdleMode.kBrake);
     // armSubsystem.middleArmMotor.setIdleMode(IdleMode.kBrake);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
